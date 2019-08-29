@@ -386,6 +386,7 @@ PNBLACKLIST[minehunt] = "Needs porting to QT > 5.6"
 PNBLACKLIST[homeautomation] = "Needs porting to QT > 5.6"
 PNBLACKLIST[samegame] = "Needs porting to QT > 5.6"
 PNBLACKLIST[applicationlauncher] = "Needs porting to QT > 5.6"
+PNBLACKLIST[evolution-data-server] = "Qemu usermode hangs forever on abaco/kwaj builders when doing g-ir-scanner-qemuwrapper"
 
 # enable reporting
 # needs http://patchwork.openembedded.org/patch/68735/
