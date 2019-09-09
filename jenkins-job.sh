@@ -21,8 +21,8 @@ BUILD_DIR="yoe"
 BUILD_TOPDIR="${BUILD_WORKSPACE}/${BUILD_DIR}"
 BUILD_TIME_LOG=${BUILD_TOPDIR}/time.txt
 
-LOG_RSYNC_DIR="jenkins@${LOGMIRROR}:htdocs/buildlogs/oe/world/warrior"
-LOG_HTTP_ROOT="http://logs.nslu2-linux.org/buildlogs/oe/world/warrior/"
+LOG_RSYNC_DIR="jenkins@${LOGMIRROR}:htdocs/buildlogs/oe/world/zeus"
+LOG_HTTP_ROOT="http://logs.nslu2-linux.org/buildlogs/oe/world/zeus/"
 
 BUILD_QA_ISSUES="already-stripped libdir textrel build-deps file-rdeps version-going-backwards host-user-contaminated installed-vs-shipped unknown-configure-option symlink-to-sysroot invalid-pkgconfig pkgname ldflags compile-host-path qa_pseudo"
 
