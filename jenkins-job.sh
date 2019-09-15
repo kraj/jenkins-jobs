@@ -174,7 +174,7 @@ EOF
     cd ${BUILD_TOPDIR}
     time bitbake -k world  2>&1 | tee -a ${LOGDIR}/bitbake.log || break;
     RESULT+=${PIPESTATUS[0]}
-    cat ${BUILD_TOPDIR}/build/tmpfs/qa.log >> ${LOGDIR}/qa.log || echo "No QA issues";
+    cat ${BUILD_TOPDIR}/build/tmpfs/qa.log >> ${LOGDIR}/qa.log 2>/dev/null || echo "No QA issues";
 
     cp conf/local.conf ${LOGDIR}
     rsync -avir ${LOGDIR} ${LOG_RSYNC_DIR}
