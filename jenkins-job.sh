@@ -311,6 +311,8 @@ BUILDHISTORY_RESET = "1"
 
 INHERIT += "reproducible_build_simple"
 
+XZ_DEFAULTS = "--threads=10"
+
 BB_DISKMON_DIRS = "\
     STOPTASKS,${TMPDIR},1G,100K \
     STOPTASKS,${DL_DIR},1G,100K \
