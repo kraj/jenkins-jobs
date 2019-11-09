@@ -179,7 +179,7 @@ EOF
     cp conf/local.conf ${LOGDIR}
     rsync -avir ${LOGDIR} ${LOG_RSYNC_DIR}
     cat ${LOGDIR}/qa.log && true
-    report_error
+    #report_error
     # wait for pseudo
     sleep 180
     umount ${BUILD_TOPDIR}/build/tmpfs || echo "Umounting tmpfs failed"
@@ -396,8 +396,8 @@ PNBLACKLIST[evolution-data-server] = "Qemu usermode hangs forever on abaco/kwaj 
 # needs http://patchwork.openembedded.org/patch/68735/
 ERR_REPORT_SERVER = "errors.yoctoproject.org"
 ERR_REPORT_PORT = "80"
-ERR_REPORT_USERNAME = "Khem Raj"
-ERR_REPORT_EMAIL = "raj.khem@gmail.com"
+ERR_REPORT_USERNAME = "OE Autobuilder"
+ERR_REPORT_EMAIL = "jenkins@jenkins.nas-admin.org"
 ERR_REPORT_UPLOAD_FAILURES = "1"
 INHERIT += "report-error"
 
@@ -510,7 +510,7 @@ function run_test-dependencies {
     rsync -avir ${LOGDIR} ${LOG_RSYNC_DIR}
     [ -s ${LOGDIR}/qa.log ] && cat ${LOGDIR}/qa.log
 
-    report_error
+    #report_error
 
     # wait for pseudo
     sleep 180
