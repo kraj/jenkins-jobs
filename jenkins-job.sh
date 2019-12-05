@@ -376,20 +376,12 @@ PACKAGECONFIG_remove_pn-qtwayland = "xcomposite-egl xcomposite-glx"
 PACKAGECONFIG_append_pn-harfbuzz = " icu"
 
 INHERIT += "blacklist"
-# PNBLACKLIST[samsung-rfs-mgr] = "needs newer libsamsung-ipc with negative D_P: Requested 'samsung-ipc-1.0 >= 0.2' but version of libsamsung-ipc is 0.1.0"
-PNBLACKLIST[android-system] = "depends on lxc from meta-virtualiazation which isn't included in my world builds"
 PNBLACKLIST[bigbuckbunny-1080p] = "big and doesn't really need to be tested so much"
 PNBLACKLIST[bigbuckbunny-480p] = "big and doesn't really need to be tested so much"
 PNBLACKLIST[bigbuckbunny-720p] = "big and doesn't really need to be tested so much"
 PNBLACKLIST[tearsofsteel-1080p] = "big and doesn't really need to be tested so much"
 RDEPENDS_packagegroup-meta-multimedia_remove_pn-packagegroup-meta-multimedia = "bigbuckbunny-1080p bigbuckbunny-480p bigbuckbunny-720p tearsofsteel-1080p"
 PNBLACKLIST[build-appliance-image] = "tries to include whole downloads directory in /home/builder/poky :/"
-PNBLACKLIST[smartrefrigerator] = "Needs porting to QT > 5.6"
-PNBLACKLIST[qmlbrowser] = "Needs porting to QT > 5.6"
-PNBLACKLIST[minehunt] = "Needs porting to QT > 5.6"
-PNBLACKLIST[homeautomation] = "Needs porting to QT > 5.6"
-PNBLACKLIST[samegame] = "Needs porting to QT > 5.6"
-PNBLACKLIST[applicationlauncher] = "Needs porting to QT > 5.6"
 PNBLACKLIST[evolution-data-server] = "Qemu usermode hangs forever on abaco/kwaj builders when doing g-ir-scanner-qemuwrapper"
 
 # enable reporting
@@ -556,14 +548,17 @@ function run_parse-results {
 
 function show-pnblacklists {
     cd ${BUILD_TOPDIR}
-    echo "PNBLACKLISTs:";
     for i in `ls -d sources/openembedded-core sources/meta-*`; do
         cd $i;
-        echo "$i:";
-        git grep '^PNBLACKLIST\[.*=' . | tee;
+        if git grep '^PNBLACKLIST\[.*=' . | grep -v documentation.conf | grep -v imagefeatures.py | grep -v yoe.conf 2>&1 > /dev/null; then
+          echo "$i:";
+          git grep '^PNBLACKLIST\[.*=' . | grep -v documentation.conf | grep -v imagefeatures.py | grep -v yoe.conf | sed 's/^/    * /g' | tee;
+          echo; echo;
+        fi
         cd ../..;
-    done | grep -v yoe.conf | grep -v documentation.conf;
-    grep ^PNBLACKLIST conf/local.conf
+    done
+    echo "conf/local.conf:";
+    grep ^PNBLACKLIST conf/local.conf | sed 's/^/    * /g'
 }
 
 function show-qa-issues {
@@ -685,6 +680,9 @@ function show-failed-tasks {
     rm -rf $TMPDIR
 
     printf "\n=== PNBLACKLISTs (`show-pnblacklists | grep ':PNBLACKLIST\[' | wc -l`) ===\n"
+ 
+    echo; echo;
+    show-pnblacklists
 
     printf "\n=== QA issues (`show-qa-issues | grep ".*:.*\[.*\]$" | wc -l`) ===\n"
     printf '{| class='wikitable'\n'
@@ -694,9 +692,6 @@ function show-failed-tasks {
 
     echo; echo;
     show-failed-signatures ${test_signatures} ${LOG_HTTP_ROOT}
-
-    echo; echo;
-    show-pnblacklists
 
     echo; echo;
     show-qa-issues
