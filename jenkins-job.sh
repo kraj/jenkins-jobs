@@ -64,6 +64,7 @@ fi
 
 cat <<EOF > ${WORKSPACE}/local.sh
 export MACHINE=${MACHINE-qemumips}
+export TOOLCHAIN=${TOOLCHAIN-gcc}
 export DOCKER_REPO="none"
 EOF
 
@@ -80,7 +81,7 @@ yoe_update_all
 
 cat <<EOF > ${WORKSPACE}/conf/local.conf
 
-TOOLCHAIN = "clang"
+TOOLCHAIN = "${TOOLCHAIN}"
 
 INHERIT += "testimage"
 INHERIT += "rm_work"
