@@ -12,6 +12,7 @@ BUILD_TIME_STR="TIME: ${BUILD_SCRIPT_NAME}-${BUILD_SCRIPT_VERSION} %e %S %U %P %
 BUILD_TIMESTAMP_START=`date -u +%s`
 BUILD_TIMESTAMP_OLD=${BUILD_TIMESTAMP_START}
 
+TIMEOUT="12h"
 umask 0022
 
 export PATH=/usr/local/bin:$PATH:/usr/sbin
@@ -178,7 +179,7 @@ do
   do
     rm $f
   done
-  buildit ret "$m" "$opts" "$t"
+  /usr/bin/timeout -s KILL ${TIMEOUT} buildit ret "$m" "$opts" "$t"
   eval `grep -e "send-error-report " ${WORKSPACE}/build/tmp/log/cooker/$m/console-latest.log | \
         sed 's/^.*send-error-report/send-error-report -y/' | sed 's/\[.*$//g'`
   tmpfile=`date +%S%N`
