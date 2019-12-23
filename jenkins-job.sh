@@ -26,7 +26,7 @@ buildit() {
 #       echo $1 $2 $3 $4
         local myret=$1
         start_time=`date +%s`
-        MACHINE=$2 bitbake $3 $4
+        MACHINE=$2 /usr/bin/timeout -s KILL ${TIMEOUT} bitbake $3 $4
         eval $myret="'$?'"
         end_time=`date +%s`
         echo execution time was `expr $end_time - $start_time` s.
@@ -179,7 +179,7 @@ do
   do
     rm $f
   done
-  /usr/bin/timeout -s KILL ${TIMEOUT} buildit ret "$m" "$opts" "$t"
+  buildit ret "$m" "$opts" "$t"
   eval `grep -e "send-error-report " ${WORKSPACE}/build/tmp/log/cooker/$m/console-latest.log | \
         sed 's/^.*send-error-report/send-error-report -y/' | sed 's/\[.*$//g'`
   tmpfile=`date +%S%N`
