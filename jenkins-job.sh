@@ -2,10 +2,9 @@
 
 BUILD_SCRIPT_VERSION="1.8.46"
 BUILD_SCRIPT_NAME=`basename ${0}`
-SRCMIRROR="10.20.9.193"
-LOGMIRROR="10.20.9.193"
 
 BUILD_BRANCH="yoe/mut"
+DISTRO_CODE="dunfell"
 # These are used by in following functions, declare them here so that
 # they are defined even when we're only sourcing this script
 BUILD_TIME_STR="TIME: ${BUILD_SCRIPT_NAME}-${BUILD_SCRIPT_VERSION} %e %S %U %P %c %w %R %F %M %x %C"
@@ -21,8 +20,8 @@ BUILD_DIR="yoe"
 BUILD_TOPDIR="${BUILD_WORKSPACE}/${BUILD_DIR}"
 BUILD_TIME_LOG=${BUILD_TOPDIR}/time.txt
 
-LOG_RSYNC_DIR="jenkins@${LOGMIRROR}:htdocs/buildlogs/oe/world/dunfell"
-LOG_HTTP_ROOT="http://logs.nslu2-linux.org/buildlogs/oe/world/dunfell/"
+LOG_RSYNC_DIR="/media/ra_build_share/buildlogs/oe/world/${DISTRO_CODE}"
+LOG_HTTP_ROOT="/media/ra_build_share/buildlogs/oe/world/${DISTRO_CODE}/"
 
 BUILD_QA_ISSUES="already-stripped libdir textrel build-deps file-rdeps version-going-backwards host-user-contaminated installed-vs-shipped unknown-configure-option symlink-to-sysroot invalid-pkgconfig pkgname ldflags compile-host-path qa_pseudo"
 
@@ -293,6 +292,7 @@ TCLIBCAPPEND = "fs"
 
 TMPDIR .= "fs"
 DL_DIR = "${BUILD_TOPDIR}/../downloads"
+SSTATE_DIR = "${BUILD_TOPDIR}/../sstate"
 
 PARALLEL_MAKE_append = " -l \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']))}"
 INHERIT += "rm_work"
@@ -512,16 +512,6 @@ function run_test-dependencies {
 }
 
 function run_rsync {
-    cd ${BUILD_TOPDIR}/../downloads
-    rsync -avir --no-links \
-      --exclude '*_bad-checksum_*' \
-      --exclude '*.done' \
-      --exclude git2 \
-      --exclude hg \
-      --exclude svn \
-      --exclude bzr \
-      ./ \
-      jenkins@${SRCMIRROR}:~/htdocs/oe-sources
 }
 
 function run_parse-results {
