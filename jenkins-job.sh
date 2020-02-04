@@ -512,6 +512,7 @@ function run_test-dependencies {
 }
 
 function run_rsync {
+    echo "Its a nop...Done"
 }
 
 function run_parse-results {
