@@ -393,8 +393,16 @@ INHERIT += "report-error"
 INHERIT += "buildstats buildstats-summary"
 
 # be more strict with QA warnings, turn them all to errors:
-ERROR_QA_append = " ldflags useless-rpaths rpaths staticdev libdir xorg-driver-abi             textrel already-stripped incompatible-license files-invalid             installed-vs-shipped compile-host-path install-host-path             pn-overrides infodir build-deps             unknown-configure-option symlink-to-sysroot multilib             invalid-packageconfig host-user-contaminated uppercase-pn"
-WARN_QA_remove = " ldflags useless-rpaths rpaths staticdev libdir xorg-driver-abi             textrel already-stripped incompatible-license files-invalid             installed-vs-shipped compile-host-path install-host-path             pn-overrides infodir build-deps             unknown-configure-option symlink-to-sysroot multilib             invalid-packageconfig host-user-contaminated uppercase-pn"
+WARN_TO_ERROR_QA ?= "ldflags useless-rpaths rpaths staticdev libdir xorg-driver-abi \\
+                     textrel already-stripped incompatible-license files-invalid \\
+                     installed-vs-shipped compile-host-path install-host-path \\
+                     pn-overrides infodir build-deps src-uri-bad \\
+                     unknown-configure-option symlink-to-sysroot multilib \\
+                     invalid-packageconfig host-user-contaminated uppercase-pn patch-fuzz \\
+                     mime mime-xdg \\
+                    "
+WARN_QA_remove = "\${WARN_TO_ERROR_QA}"
+ERROR_QA_append = " \${WARN_TO_ERROR_QA}"
 
 # Commericial licenses
 # chromium
