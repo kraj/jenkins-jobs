@@ -291,8 +291,12 @@ TMPDIR = "${TMPFS}"
 DL_DIR = "${BUILD_TOPDIR}/../downloads"
 SSTATE_DIR = "${BUILD_TOPDIR}/../sstate"
 
-PARALLEL_MAKE_append = " -l \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']))}"
+PARALLEL_MAKE = "-j 10"
+BB_NUMBER_THREADS = "15"
+XZ_DEFAULTS = "--threads=8"
+
 INHERIT += "rm_work"
+INHERIT += "reproducible_build_simple"
 
 # For kernel-selftest with linux 4.18+
 HOSTTOOLS += "clang llc"
@@ -305,10 +309,6 @@ BUILDHISTORY_COMMIT ?= "1"
 BUILDHISTORY_COMMIT_AUTHOR ?= "Khem Raj <raj.khem@gmail.com>"
 BUILDHISTORY_PUSH_REPO ?= "origin oe-world-${HOSTNAME}"
 BUILDHISTORY_RESET = "1"
-
-INHERIT += "reproducible_build_simple"
-
-XZ_DEFAULTS = "--threads=8"
 
 BB_DISKMON_DIRS = "\\
     STOPTASKS,${TMPDIR},1G,100K \\
