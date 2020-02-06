@@ -280,6 +280,10 @@ function run_compare-signatures {
 }
 
 function run_prepare {
+    if [ -e ${BUILD_TOPDIR}/../downloads ]; then
+        rm -rf ${BUILD_TOPDIR}/../downloads/*.lock
+        rm -rf ${BUILD_TOPDIR}/../downloads/*_bad-checksum_*
+    fi
     cd ${BUILD_WORKSPACE}
     if [ ! -d ${BUILD_TOPDIR}/.git/ ] ; then
         git clone git://github.com/YoeDistro/yoe-distro -b ${BUILD_BRANCH} yoe
