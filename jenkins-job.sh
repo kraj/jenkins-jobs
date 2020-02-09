@@ -53,7 +53,7 @@ function print_timestamp {
 
 function parse_job_name {
     case ${JOB_NAME} in
-        oe_world_*)
+        *oe_world_*)
             BUILD_VERSION="world"
             ;;
         *)
