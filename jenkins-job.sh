@@ -26,6 +26,8 @@ LOG_HTTP_ROOT="/media/ra_build_share/buildlogs/oe/world/${DISTRO_CODE}/"
 BUILD_QA_ISSUES="already-stripped libdir textrel build-deps file-rdeps version-going-backwards host-user-contaminated installed-vs-shipped unknown-configure-option symlink-to-sysroot invalid-pkgconfig pkgname ldflags compile-host-path qa_pseudo"
 
 TMPFS="${BUILD_TOPDIR}/build/tmpfs"
+SSTATE="${BUILD_TOPDIR}/../sstate"
+DOWNLOADS="${BUILD_TOPDIR}/../downloads"
 
 function report_error {
 
@@ -227,12 +229,12 @@ function run_cleanup {
     if [ -d ${BUILD_TOPDIR}/build ] ; then
         cd ${BUILD_TOPDIR}/build;
         ARCHS="core2-64,i586,armv5te,aarch64,qemuarm,qemuarm64,qemux86,qemux86_64"
-        DU1=`du -hs sstate-cache`
+        DU1=`du -hs ${SSTATE}`
         echo "$DU1"
-        OPENSSL="find sstate-cache -name '*:openssl:*populate_sysroot*tgz'"
+        OPENSSL="find ${SSTATE} -name '*:openssl:*populate_sysroot*tgz'"
         ARCHIVES1=`sh -c "${OPENSSL}"`; echo "number of openssl archives: `echo "$ARCHIVES1" | wc -l`"; echo "$ARCHIVES1"
-        ${BUILD_TOPDIR}/sources/openembedded-core/scripts/sstate-cache-management.sh -L --cache-dir=sstate-cache -y -d --extra-archs=${ARCHS// /,} || true
-        DU2=`du -hs sstate-cache`
+        ${BUILD_TOPDIR}/sources/openembedded-core/scripts/sstate-cache-management.sh -L --cache-dir=${SSTATE} -y -d --extra-archs=${ARCHS// /,} || true
+        DU2=`du -hs ${SSTATE}`
         echo "$DU2"
         ARCHIVES2=`sh -c "${OPENSSL}"`; echo "number of openssl archives: `echo "$ARCHIVES2" | wc -l`"; echo "$ARCHIVES2"
 
@@ -292,8 +294,8 @@ function run_prepare {
     cat <<EOF > ${BUILD_TOPDIR}/conf/local.conf
 
 TMPDIR = "${TMPFS}"
-DL_DIR = "${BUILD_TOPDIR}/../downloads"
-SSTATE_DIR = "${BUILD_TOPDIR}/../sstate"
+DL_DIR = "${DOWNLOADS}"
+SSTATE_DIR = "${SSTATE}"
 
 PARALLEL_MAKE = "-j 10"
 BB_NUMBER_THREADS = "15"
