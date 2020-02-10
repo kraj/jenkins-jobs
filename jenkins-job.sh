@@ -161,7 +161,7 @@ EOF
 
     show-git-log
     export LC_ALL=en_US.utf8
-    LOGDIR=log.world.${MACHINE}.`date "+%Y%m%d_%H%M%S"`.log
+    LOGDIR=${LOG_RSYNC_DIR}/log.world.${MACHINE}.`date "+%Y%m%d_%H%M%S"`.log
     mkdir -p ${LOGDIR}
     [ -d ${BUILD_TOPDIR}/build/tmpfs ] && rm -rf ${BUILD_TOPDIR}/build/tmpfs/*;
     [ -d ${BUILD_TOPDIR}/build/tmpfs ] || mkdir -p ${BUILD_TOPDIR}/build/tmpfs
@@ -178,7 +178,6 @@ EOF
     cat ${BUILD_TOPDIR}/build/tmpfs/qa.log >> ${LOGDIR}/qa.log 2>/dev/null || echo "No QA issues";
 
     cp conf/local.conf ${LOGDIR}
-    rsync -avir ${LOGDIR} ${LOG_RSYNC_DIR}
     cat ${LOGDIR}/qa.log && true
     #report_error
     # wait for pseudo
@@ -259,7 +258,7 @@ function run_compare-signatures {
     export LC_ALL=en_US.utf8
     . ./${BUILD_MACHINE}-envsetup.sh
 
-    LOGDIR=log.signatures.`date "+%Y%m%d_%H%M%S"`.log
+    LOGDIR=${LOG_RSYNC_DIR}/log.signatures.`date "+%Y%m%d_%H%M%S"`.log
     mkdir -p ${LOGDIR}
     rm -rf ${BUILD_TOPDIR}/build/tmpfs/*;
     mount | grep "tmpfs type tmpfs" && echo "Some tmpfs already has tmpfs mounted, skipping mount" || mount ${BUILD_TOPDIR}/build/tmpfs
@@ -269,8 +268,6 @@ function run_compare-signatures {
 
     OUTPUT=`grep "INFO: Output written in: " ${LOGDIR}/signatures.log | sed 's/INFO: Output written in: //g'`
     ls ${OUTPUT}/signatures.*.*.log >/dev/null 2>/dev/null && cp ${OUTPUT}/signatures.*.*.log ${LOGDIR}/
-
-    rsync -avir ${LOGDIR} ${LOG_RSYNC_DIR}
 
     [ -d sstate-diff ] || mkdir -p sstate-diff
     mv ${BUILD_TOPDIR}/build/tmpfs/sstate-diff/* sstate-diff
@@ -466,7 +463,7 @@ function run_test-dependencies {
     yoe_setup
     export LC_ALL=en_US.utf8
 
-    LOGDIR=log.dependencies.${BUILD_MACHINE}.`date "+%Y%m%d_%H%M%S"`.log
+    LOGDIR=${LOG_RSYNC_DIR}/log.dependencies.${BUILD_MACHINE}.`date "+%Y%m%d_%H%M%S"`.log
     mkdir -p ${LOGDIR}
 
     rm -rf ${BUILD_TOPDIR}/build/tmpfs/*;
@@ -509,7 +506,6 @@ function run_test-dependencies {
     ls ${OUTPUT}/3_min/failed/*.log >/dev/null 2>/dev/null && cp -l ${OUTPUT}/3_min/failed/*.log ${LOGDIR}/3_min/failed
 
     cp conf/local.conf ${LOGDIR}
-    rsync -avir ${LOGDIR} ${LOG_RSYNC_DIR}
     [ -s ${LOGDIR}/qa.log ] && cat ${LOGDIR}/qa.log
 
     #report_error
@@ -532,19 +528,16 @@ function run_parse-results {
         echo "ERROR: ${BUILD_SCRIPT_NAME}-${BUILD_SCRIPT_VERSION} BUILD_LOG_WORLD_DIRS is empty, it should contain 3 log.world.qemu*.20*.log directories for qemuarm, qemuarm64, qemux86, qemux86-64 logs (in this order), then log.signatures.20*. Or 'LATEST' to take 4 newest ones."
         exit 1
     fi
-    # first we need to "import" qemux86 and qemux86-64 reports from kwaj
-    rsync -avir --delete ../kwaj/yoe/log.world.qemux86*.20* .
 
     if [ "${BUILD_LOG_WORLD_DIRS}" = "LATEST" ] ; then
         BUILD_LOG_WORLD_DIRS=""
         for M in qemuarm qemuarm64 qemux86 qemux86-64; do
-            BUILD_LOG_WORLD_DIRS="${BUILD_LOG_WORLD_DIRS} `ls -d log.world.${M}.20*.log/ | sort | tail -n 1`"
+            BUILD_LOG_WORLD_DIRS="${BUILD_LOG_WORLD_DIRS} `ls -d ${LOG_RSYNC_DIR}/log.world.${M}.20*.log/ | sort | tail -n 1`"
         done
-        BUILD_LOG_WORLD_DIRS="${BUILD_LOG_WORLD_DIRS} `ls -d log.signatures.20*.log/ | sort | tail -n 1`"
+        BUILD_LOG_WORLD_DIRS="${BUILD_LOG_WORLD_DIRS} `ls -d ${LOG_RSYNC_DIR}/log.signatures.20*.log/ | sort | tail -n 1`"
     fi
-    LOG=log.report.`date "+%Y%m%d_%H%M%S"`.log
+    LOG=${LOG_RSYNC_DIR}/log.report.`date "+%Y%m%d_%H%M%S"`.log
     show-failed-tasks ${BUILD_LOG_WORLD_DIRS} 2>&1 | tee $LOG
-    rsync -avir ${LOG} ${LOG_RSYNC_DIR}
 }
 
 function show-pnblacklists {
@@ -596,7 +589,7 @@ function show-failed-tasks {
         fi
     done
 
-    DATE=`echo ${qemux86_64} | sed 's/^log.world.qemux86-64.\(....\)\(..\)\(..\)_.......log.*$/\1-\2-\3/g'`
+    DATE=`echo ${qemux86_64} | sed 's/log.world.qemux86-64.\(....\)\(..\)\(..\)_.......log.*$/\1-\2-\3/g'`
 
     TMPDIR=`mktemp -d`
     for M in $machines; do
