@@ -294,8 +294,6 @@ TMPDIR = "${TMPFS}"
 DL_DIR = "${DOWNLOADS}"
 SSTATE_DIR = "${SSTATE}"
 
-PARALLEL_MAKE = "-j 10"
-BB_NUMBER_THREADS = "15"
 XZ_DEFAULTS = "--threads=8"
 
 INHERIT += "rm_work"
