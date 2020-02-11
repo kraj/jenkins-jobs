@@ -149,7 +149,7 @@ function kill_stalled_bitbake_processes {
 
 function run_build {
     declare -i RESULT=0
-
+    run_prepare
     cat <<EOF > ${BUILD_TOPDIR}/local.sh
 export DOCKER_REPO="none"
 EOF
@@ -749,7 +749,7 @@ case ${BUILD_TYPE} in
         run_compare-signatures
         ;;
     prepare)
-        run_prepare
+        echo "Empty function"
         ;;
     rsync)
         run_rsync
