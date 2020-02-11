@@ -222,7 +222,7 @@ function run_cleanup {
         cd ${BUILD_TOPDIR}
         git clone git@github.com:kraj/jenkins-buildhistory.git buildhistory
         cd buildhistory
-        git checkout -b oe-world-${HOSTNAME} origin/oe-world-${HOSTNAME} || git checkout -b oe-world-${HOSTNAME}
+        git checkout -b oe-world origin/oe-world || git checkout -b oe-world
         cd ${BUILD_WORKSPACE}
     fi
     if [ -d ${BUILD_TOPDIR}/build ] ; then
@@ -308,7 +308,7 @@ BB_GENERATE_MIRROR_TARBALLS = "1"
 BUILDHISTORY_DIR = "${BUILD_TOPDIR}/buildhistory"
 BUILDHISTORY_COMMIT ?= "1"
 BUILDHISTORY_COMMIT_AUTHOR ?= "Khem Raj <raj.khem@gmail.com>"
-BUILDHISTORY_PUSH_REPO ?= "origin oe-world-${HOSTNAME}"
+BUILDHISTORY_PUSH_REPO ?= "origin oe-world"
 BUILDHISTORY_RESET = "1"
 
 BB_DISKMON_DIRS = "\\
@@ -448,7 +448,7 @@ EOF
         cd ${BUILD_TOPDIR}
         git clone git@github.com:kraj/jenkins-buildhistory.git buildhistory
         cd buildhistory
-        git checkout -b oe-world-${HOSTNAME} origin/oe-world-${HOSTNAME} || git checkout -b oe-world-${HOSTNAME}
+        git checkout -b oe-world origin/oe-world || git checkout -b oe-world
         cd ${BUILD_WORKSPACE}
     fi
 }
