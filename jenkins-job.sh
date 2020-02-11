@@ -181,10 +181,6 @@ EOF
     cat ${LOGDIR}/qa.log && true
     #report_error
     # wait for pseudo
-    sleep 180
-    umount ${BUILD_TOPDIR}/build/tmpfs || echo "Umounting tmpfs failed"
-    rm -rf ${BUILD_TOPDIR}/build/tmpfs/*;
-
     exit ${RESULT}
 }
 
