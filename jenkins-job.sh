@@ -227,7 +227,7 @@ function run_cleanup {
     fi
     if [ -d ${BUILD_TOPDIR}/build ] ; then
         cd ${BUILD_TOPDIR}/build;
-        ARCHS="core2-64,i586,armv5te,aarch64,qemuarm,qemuarm64,qemux86,qemux86_64"
+        ARCHS="core2-64,core2-32,armv7vet2hf-neon,aarch64,qemuarm,qemuarm64,qemux86,qemux86_64"
         DU1=`du -hs ${SSTATE}`
         echo "$DU1"
         OPENSSL="find ${SSTATE} -name '*:openssl:*populate_sysroot*tgz'"
