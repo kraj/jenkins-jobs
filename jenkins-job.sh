@@ -73,6 +73,26 @@ function parse_job_name {
             BUILD_MACHINE="qemuarm64"
             export YOE_PROFILE=yoe-glibc-systemd-wayland
             ;;
+        *_qemumips)
+            BUILD_MACHINE="qemumips"
+            export YOE_PROFILE=yoe-glibc-systemd-wayland
+            ;;
+        *_qemumips64)
+            BUILD_MACHINE="qemumips64"
+            export YOE_PROFILE=yoe-glibc-systemd-wayland
+            ;;
+        *_qemuriscv32)
+            BUILD_MACHINE="qemuriscv32"
+            export YOE_PROFILE=yoe-glibc-systemd-wayland
+            ;;
+        *_qemuriscv64)
+            BUILD_MACHINE="qemuriscv64"
+            export YOE_PROFILE=yoe-glibc-systemd-wayland
+            ;;
+        *_qemuppc)
+            BUILD_MACHINE="qemuppc"
+            export YOE_PROFILE=yoe-glibc-systemd-wayland
+            ;;
         *_qemux86)
             BUILD_MACHINE="qemux86"
             export YOE_PROFILE=yoe-musl-systemd-wayland
