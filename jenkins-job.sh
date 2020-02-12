@@ -301,7 +301,10 @@ function run_prepare {
     fi
     cd ${BUILD_WORKSPACE}
     if [ ! -d ${BUILD_TOPDIR}/.git/ ] ; then
-        git clone git://github.com/YoeDistro/yoe-distro -b ${BUILD_BRANCH} yoe
+        mkdir -p ${BUILD_TOPDIR} && cd ${BUILD_TOPDIR}
+        git init
+        git remote add origin git://github.com/YoeDistro/yoe-distro
+        git pull origin ${BUILD_BRANCH}
     fi
     git checkout -b ${BUILD_BRANCH} origin/${BUILD_BRANCH} || git checkout ${BUILD_BRANCH}
     cat <<EOF > ${BUILD_TOPDIR}/conf/local.conf
