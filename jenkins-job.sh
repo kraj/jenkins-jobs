@@ -347,6 +347,10 @@ PREFERRED_PROVIDER_virtual/fftw = "fftw"
 # use gold
 DISTRO_FEATURES_append = " ld-is-gold"
 
+# gold does not support rv32/rv64 yet
+DISTRO_FEATURES_remove_riscv64 = " ld-is-gold"
+DISTRO_FEATURES_remove_riscv32 = " ld-is-gold"
+
 # use ptest
 DISTRO_FEATURES_append = " ptest"
 
