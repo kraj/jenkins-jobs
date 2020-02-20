@@ -348,8 +348,9 @@ PREFERRED_PROVIDER_virtual/fftw = "fftw"
 DISTRO_FEATURES_append = " ld-is-gold"
 
 # gold does not support rv32/rv64 yet
-DISTRO_FEATURES_remove_riscv64 = " ld-is-gold"
-DISTRO_FEATURES_remove_riscv32 = " ld-is-gold"
+DISTRO_FEATURES_remove_riscv64 = "ld-is-gold"
+DISTRO_FEATURES_remove_riscv32 = "ld-is-gold"
+DISTRO_FEATURES_remove_class-crosssdk = "ld-is-gold"
 
 # use ptest
 DISTRO_FEATURES_append = " ptest"
@@ -557,8 +558,8 @@ function run_parse-results {
         done
         BUILD_LOG_WORLD_DIRS="${BUILD_LOG_WORLD_DIRS} `ls -d ${LOG_RSYNC_DIR}/log.signatures.20*.log/ | sort | tail -n 1`"
     fi
-    LOG=${LOG_RSYNC_DIR}/log.report.`date "+%Y%m%d_%H%M%S"`.log
-    show-failed-tasks ${BUILD_LOG_WORLD_DIRS} 2>&1 | tee $LOG
+    LOG=log.report.`date "+%Y%m%d_%H%M%S"`.log
+    show-failed-tasks ${BUILD_LOG_WORLD_DIRS} 2>&1 | tee ${LOG_RSYNC_DIR}/$LOG
 }
 
 function show-pnblacklists {
@@ -610,7 +611,7 @@ function show-failed-tasks {
         fi
     done
 
-    DATE=`echo ${qemux86_64} | sed 's/log.world.qemux86-64.\(....\)\(..\)\(..\)_.......log.*$/\1-\2-\3/g'`
+    DATE=`echo ${qemux86_64} | sed 's/.*log.world.qemux86-64.\(....\)\(..\)\(..\)_.......log.*$/\1-\2-\3/g'`
 
     TMPDIR=`mktemp -d`
     for M in $machines; do
