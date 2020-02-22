@@ -430,10 +430,14 @@ WARN_QA_remove = "\${WARN_TO_ERROR_QA}"
 ERROR_QA_append = " \${WARN_TO_ERROR_QA}"
 
 # Commericial licenses
+# components whose licensing have commercial distribution impact
+#
+# required to build netperf
+LICENSE_FLAGS_WHITELIST_append = " non-commercial_netperf "
 # chromium
 LICENSE_FLAGS_WHITELIST_append = " commercial_ffmpeg commercial_x264 "
 # vlc
-LICENSE_FLAGS_WHITELIST_append = " commercial_mpeg2dec "
+LICENSE_FLAGS_WHITELIST_append = " commercial_mpeg2dec commercial_vlc "
 # mpd
 LICENSE_FLAGS_WHITELIST_append = " commercial_mpg123 "
 # libmad
@@ -452,6 +456,10 @@ LICENSE_FLAGS_WHITELIST_append = " commercial_xfmpc commercial_mpd "
 LICENSE_FLAGS_WHITELIST_append = " commercial_mpv "
 # epiphany
 LICENSE_FLAGS_WHITELIST_append = " commercial_faad2 "
+# gstreamer ugly plugins
+LICENSE_FLAGS_WHITELIST_append = " commercial_gstreamer1.0-plugins-ugly "
+# sox tools
+LICENSE_FLAGS_WHITELIST_append = " commercial_sox "
 
 # required for Freescale stuff to build
 ACCEPT_FSL_EULA = "1"
