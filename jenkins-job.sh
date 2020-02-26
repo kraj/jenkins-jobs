@@ -119,9 +119,9 @@ TEST_QEMUBOOT_TIMEOUT = "60"
 TEST_TARGET_raspberrypi3 ?= "simpleremote"
 TEST_TARGET_IP_raspberrypi3 ?= "10.0.0.68"
 
-PARALLEL_MAKE_append = " -l \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN'])) * 150/100}"
+PARALLEL_MAKE_append = " -l \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN'])) * 100/100}"
 
-#XZ_DEFAULTS = "--threads=3"
+XZ_DEFAULTS = "--threads=4"
 
 INHERIT += "blacklist"
 PNBLACKLIST[build-appliance-image] = "tries to include whole downloads directory in /home/builder/poky :/"
@@ -153,6 +153,8 @@ LICENSE_FLAGS_WHITELIST_append = " commercial_mpv "
 LICENSE_FLAGS_WHITELIST_append = " commercial_faad2 "
 # ugly
 LICENSE_FLAGS_WHITELIST_append = " commercial_gstreamer1.0-plugins-ugly "
+# sox tools
+LICENSE_FLAGS_WHITELIST_append = " commercial_sox "
 EOF
 
 # delete ununsed layers
