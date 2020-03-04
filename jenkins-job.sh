@@ -405,6 +405,7 @@ PNBLACKLIST[tearsofsteel-1080p] = "big and doesn't really need to be tested so m
 RDEPENDS_packagegroup-meta-multimedia_remove_pn-packagegroup-meta-multimedia = "bigbuckbunny-1080p bigbuckbunny-480p bigbuckbunny-720p tearsofsteel-1080p"
 PNBLACKLIST[build-appliance-image] = "tries to include whole downloads directory in /home/builder/poky :/"
 
+<<<<<<< HEAD
 # enable reporting
 # needs http://patchwork.openembedded.org/patch/68735/
 ERR_REPORT_SERVER = "errors.yoctoproject.org"
@@ -429,40 +430,10 @@ WARN_TO_ERROR_QA ?= "ldflags useless-rpaths rpaths staticdev libdir xorg-driver-
 WARN_QA_remove = "\${WARN_TO_ERROR_QA}"
 ERROR_QA_append = " \${WARN_TO_ERROR_QA}"
 
-# Commericial licenses
-# components whose licensing have commercial distribution impact
-#
-# required to build netperf
-LICENSE_FLAGS_WHITELIST_append = " non-commercial_netperf "
-# chromium
-LICENSE_FLAGS_WHITELIST_append = " commercial_ffmpeg commercial_x264 "
-# vlc
-LICENSE_FLAGS_WHITELIST_append = " commercial_mpeg2dec commercial_vlc "
-# mpd
-LICENSE_FLAGS_WHITELIST_append = " commercial_mpg123 "
-# libmad
-LICENSE_FLAGS_WHITELIST_append = " commercial_libmad "
-# gstreamer1.0-libav
-LICENSE_FLAGS_WHITELIST_append = " commercial_gstreamer1.0-libav "
-# gstreamer1.0-omx
-LICENSE_FLAGS_WHITELIST_append = " commercial_gstreamer1.0-omx "
-# omapfbplay
-LICENSE_FLAGS_WHITELIST_append = " commercial_lame "
-# libomxil
-LICENSE_FLAGS_WHITELIST_append = " commercial_libomxil "
-# xfce
-LICENSE_FLAGS_WHITELIST_append = " commercial_packagegroup-xfce-multimedia commercial_xfce4-mpc-plugin"
-LICENSE_FLAGS_WHITELIST_append = " commercial_xfmpc commercial_mpd "
-LICENSE_FLAGS_WHITELIST_append = " commercial_mpv "
-# epiphany
-LICENSE_FLAGS_WHITELIST_append = " commercial_faad2 "
-# gstreamer ugly plugins
-LICENSE_FLAGS_WHITELIST_append = " commercial_gstreamer1.0-plugins-ugly "
-# sox tools
-LICENSE_FLAGS_WHITELIST_append = " commercial_sox "
-
 # required for Freescale stuff to build
 ACCEPT_FSL_EULA = "1"
+# Enable all commercial packages for build
+LICENSE_FLAGS_WHITELIST_append = " commercial non-commercial"
 EOF
     cd ${BUILD_TOPDIR}
     . ./${BUILD_MACHINE}-envsetup.sh
