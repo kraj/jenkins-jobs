@@ -126,35 +126,8 @@ XZ_DEFAULTS = "--threads=4"
 INHERIT += "blacklist"
 PNBLACKLIST[build-appliance-image] = "tries to include whole downloads directory in /home/builder/poky :/"
 
-# required to build netperf
-LICENSE_FLAGS_WHITELIST_append = " non-commercial_netperf "
-
-# chromium
-LICENSE_FLAGS_WHITELIST_append = " commercial_ffmpeg commercial_x264 "
-# vlc
-LICENSE_FLAGS_WHITELIST_append = " commercial_mpeg2dec "
-# mpd
-LICENSE_FLAGS_WHITELIST_append = " commercial_mpg123 "
-# libmad
-LICENSE_FLAGS_WHITELIST_append = " commercial_libmad "
-# gstreamer1.0-libav
-LICENSE_FLAGS_WHITELIST_append = " commercial_gstreamer1.0-libav "
-# gstreamer1.0-omx
-LICENSE_FLAGS_WHITELIST_append = " commercial_gstreamer1.0-omx "
-# omapfbplay
-LICENSE_FLAGS_WHITELIST_append = " commercial_lame "
-# libomxil
-LICENSE_FLAGS_WHITELIST_append = " commercial_libomxil "
-# xfce
-LICENSE_FLAGS_WHITELIST_append = " commercial_packagegroup-xfce-multimedia commercial_xfce4-mpc-plugin"
-LICENSE_FLAGS_WHITELIST_append = " commercial_xfmpc commercial_mpd "
-LICENSE_FLAGS_WHITELIST_append = " commercial_mpv "
-# epiphany
-LICENSE_FLAGS_WHITELIST_append = " commercial_faad2 "
-# ugly
-LICENSE_FLAGS_WHITELIST_append = " commercial_gstreamer1.0-plugins-ugly "
-# sox tools
-LICENSE_FLAGS_WHITELIST_append = " commercial_sox "
+# Enable all commercial packages for build
+LICENSE_FLAGS_WHITELIST_append = " commercial non-commercial"
 EOF
 
 # delete ununsed layers
