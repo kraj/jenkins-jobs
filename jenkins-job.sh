@@ -405,7 +405,6 @@ PNBLACKLIST[tearsofsteel-1080p] = "big and doesn't really need to be tested so m
 RDEPENDS_packagegroup-meta-multimedia_remove_pn-packagegroup-meta-multimedia = "bigbuckbunny-1080p bigbuckbunny-480p bigbuckbunny-720p tearsofsteel-1080p"
 PNBLACKLIST[build-appliance-image] = "tries to include whole downloads directory in /home/builder/poky :/"
 
-<<<<<<< HEAD
 # enable reporting
 # needs http://patchwork.openembedded.org/patch/68735/
 ERR_REPORT_SERVER = "errors.yoctoproject.org"
