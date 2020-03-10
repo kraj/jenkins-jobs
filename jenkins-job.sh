@@ -26,7 +26,7 @@ LOG_HTTP_ROOT="/media/ra_build_share/buildlogs/oe/world/${DISTRO_CODE}/"
 BUILD_QA_ISSUES="already-stripped libdir textrel build-deps file-rdeps version-going-backwards host-user-contaminated installed-vs-shipped unknown-configure-option symlink-to-sysroot invalid-pkgconfig pkgname ldflags compile-host-path qa_pseudo"
 
 TMPFS="${BUILD_TOPDIR}/build/tmpfs"
-SSTATE="${BUILD_TOPDIR}/../sstate"
+SSTATE="${BUILD_TOPDIR}/../sstate/${DISTRO_CODE}"
 DOWNLOADS="${BUILD_TOPDIR}/../downloads"
 
 function report_error {
