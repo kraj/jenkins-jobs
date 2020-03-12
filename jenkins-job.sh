@@ -21,7 +21,7 @@ BUILD_TOPDIR="${BUILD_WORKSPACE}/${BUILD_DIR}"
 BUILD_TIME_LOG=${BUILD_TOPDIR}/time.txt
 
 LOG_RSYNC_DIR="/media/ra_build_share/buildlogs/oe/world/${DISTRO_CODE}"
-LOG_HTTP_ROOT="/media/ra_build_share/buildlogs/oe/world/${DISTRO_CODE}/"
+LOG_HTTP_ROOT="http://logs.nslu2-linux.org/buildlogs/oe/world/${DISTRO_CODE}/"
 
 BUILD_QA_ISSUES="already-stripped libdir textrel build-deps file-rdeps version-going-backwards host-user-contaminated installed-vs-shipped unknown-configure-option symlink-to-sysroot invalid-pkgconfig pkgname ldflags compile-host-path qa_pseudo"
 
@@ -664,7 +664,7 @@ function show-failed-tasks {
     printf "\n=== Number of failed tasks (${issues_all}) ===\n"
     printf '{| class='wikitable'\n'
     for M in $machines; do
-        log=${LOG_HTTP_ROOT}$(eval echo "\$${M}")
+        log=${LOG_HTTP_ROOT}$(eval echo "\$${M}"|xargs basename)
         log_file=$(eval echo "\$${M}")bitbake.log
         link=`grep http://errors.yocto $log_file | sed 's@.*http://@http://@g'`
         printf "|-\n|| $M \t|| `cat $TMPDIR/${M} | wc -l`\t || $log || $link\n"
@@ -720,7 +720,7 @@ function show-failed-signatures() {
     COUNT=`cat ${1}/signatures.log | grep "^ERROR:.* issues were found in" | sed 's/^ERROR: \(.*\) issues were found in.*$/\1/g'`
     [ -z "${COUNT}" ] && COUNT="0"
     printf "\n=== Incorrect PACKAGE_ARCH or sstate signatures (${COUNT}) ===\n"
-    printf "\nComplete log: $2$1\n"
+    printf "\nComplete log: $2`basename $1`\n"
     if grep -q ERROR: $1/signatures.log; then
         grep "^ERROR:.* issues were found in" $1/signatures.log | sed 's/^/    * /g'
         echo
