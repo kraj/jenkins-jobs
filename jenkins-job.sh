@@ -285,8 +285,8 @@ function run_compare-signatures {
     OUTPUT=`grep "INFO: Output written in: " ${LOGDIR}/signatures.log | sed 's/INFO: Output written in: //g'`
     ls ${OUTPUT}/signatures.*.*.log >/dev/null 2>/dev/null && cp ${OUTPUT}/signatures.*.*.log ${LOGDIR}/
 
-    [ -d sstate-diff ] || mkdir -p sstate-diff
-    mv ${BUILD_TOPDIR}/build/tmpfs/sstate-diff/* sstate-diff
+    [ -d ${LOGDIR}/sstate-diff ] || mkdir -p ${LOGDIR}/sstate-diff
+    mv ${BUILD_TOPDIR}/build/tmpfs/sstate-diff/* ${LOGDIR}/sstate-diff
     report_error
     umount ${BUILD_TOPDIR}/build/tmpfs || echo "Umounting tmpfs failed"
     rm -rf ${BUILD_TOPDIR}/build/tmpfs/*;
