@@ -174,7 +174,6 @@ function run_build {
 export DOCKER_REPO="none"
 EOF
     cd ${BUILD_TOPDIR}
-    git pull
     . ./${BUILD_MACHINE}-envsetup.sh
 
     yoe_setup
@@ -300,13 +299,22 @@ function run_prepare {
         rm -rf ${BUILD_TOPDIR}/../downloads/*_bad-checksum_*
     fi
     cd ${BUILD_WORKSPACE}
-    if [ ! -d ${BUILD_TOPDIR}/.git/ ] ; then
-        mkdir -p ${BUILD_TOPDIR} && cd ${BUILD_TOPDIR}
-        git init
-        git remote add origin git://github.com/YoeDistro/yoe-distro
-        git pull origin ${BUILD_BRANCH}
+    if [ -e  ${BUILD_TOPDIR}/buildhistory ]; then
+      mv ${BUILD_TOPDIR}/buildhistory ${BUILD_TOPDIR}/../
     fi
-    git checkout -b ${BUILD_BRANCH} origin/${BUILD_BRANCH} || git checkout ${BUILD_BRANCH}
+
+    umount ${BUILD_TOPDIR}/build/tmpfs || echo "Umounting tmpfs failed"
+
+    rm -rf ${BUILD_TOPDIR}
+
+    mkdir -p ${BUILD_TOPDIR} && cd ${BUILD_TOPDIR}
+    if [ -e ${BUILD_TOPDIR}/../buildhistory ]; then
+      mv ${BUILD_TOPDIR}/../buildhistory .
+    fi
+    git init
+    git remote add origin git://github.com/YoeDistro/yoe-distro
+    git pull origin ${BUILD_BRANCH}
+    git checkout origin/${BUILD_BRANCH}
     cat <<EOF > ${BUILD_TOPDIR}/conf/local.conf
 
 TMPDIR = "${TMPFS}"
@@ -441,6 +449,7 @@ EOF
     yoe_update_all
     # delete extra layers so we can complete builds in time
     sed -i -e "/sources\/meta-browser/d" conf/bblayers.conf
+    sed -i -e "/sources\/meta-webkit/d" conf/bblayers.conf
     sed -i -e "/sources\/meta-rust/d" conf/bblayers.conf
     sed -i -e "/sources\/meta-qt5/d" conf/bblayers.conf
     sed -i -e "/sources\/meta-clang/d" conf/bblayers.conf
@@ -703,7 +712,7 @@ function show-failed-tasks {
 function show-git-log() {
     BRANCH=HEAD
     pushd ${PWD}
-    for i in bitbake openembedded-core meta-openembedded meta-qt5 meta-browser; do
+    for i in bitbake openembedded-core meta-openembedded; do
         printf "\n== Tested changes (not included in master yet) - $i ==\n"
         cd sources/$i;
         COUNT=`git log --oneline origin/master..${BRANCH} | wc -l`
