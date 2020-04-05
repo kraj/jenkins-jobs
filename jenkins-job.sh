@@ -131,7 +131,7 @@ LICENSE_FLAGS_WHITELIST_append = " commercial non-commercial"
 EOF
 
 # delete ununsed layers
-sed -i -e "/${TOPDIR}\/sources\/meta-browser/d" ${WORKSPACE}/conf/bblayers.conf
+sed -i -e "/${TOPDIR}\/sources\/meta-webkit/d" ${WORKSPACE}/conf/bblayers.conf
 sed -i -e "/${TOPDIR}\/sources\/meta-rust/d" ${WORKSPACE}/conf/bblayers.conf
 sed -i -e "/${TOPDIR}\/sources\/meta-qt5/d" ${WORKSPACE}/conf/bblayers.conf
 
