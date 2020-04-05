@@ -446,7 +446,6 @@ EOF
     . ./${BUILD_MACHINE}-envsetup.sh
     git checkout conf/bblayers.conf
     yoe_setup
-    yoe_update_all
     # delete extra layers so we can complete builds in time
     sed -i -e "/sources\/meta-browser/d" conf/bblayers.conf
     sed -i -e "/sources\/meta-webkit/d" conf/bblayers.conf
