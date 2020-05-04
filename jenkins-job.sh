@@ -448,7 +448,6 @@ EOF
     yoe_setup
     # delete extra layers so we can complete builds in time
     sed -i -e "/sources\/meta-browser/d" conf/bblayers.conf
-    sed -i -e "/sources\/meta-webkit/d" conf/bblayers.conf
     sed -i -e "/sources\/meta-rust/d" conf/bblayers.conf
     sed -i -e "/sources\/meta-qt5/d" conf/bblayers.conf
     sed -i -e "/sources\/meta-clang/d" conf/bblayers.conf
