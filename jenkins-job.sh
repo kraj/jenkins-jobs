@@ -136,7 +136,7 @@ sed -i -e "/${TOPDIR}\/sources\/meta-qt5/d" ${WORKSPACE}/conf/bblayers.conf
 
 machs="${MACHINES}"
 t="${TARGETS}"
-opts="--quiet --continue"
+opts="--continue"
 
 
 for m in $machs
