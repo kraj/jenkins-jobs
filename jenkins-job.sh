@@ -165,6 +165,15 @@ function kill_stalled_bitbake_processes {
         [ -n "${BITBAKE_PIDS}" ] && kill -9 ${BITBAKE_PIDS}
         ps aux | grep "bitbake/bin/[b]itbake" || true
     fi
+    if ps aux | grep "bitbake/bin/[b]itbake-server" ; then
+        local BITBAKE_PIDS=`ps aux | grep "bitbake/bin/[b]itbake-server" | awk '{print $2}' | xargs`
+        [ -n "${BITBAKE_PIDS}" ] && kill ${BITBAKE_PIDS}
+        sleep 10
+        ps aux | grep "bitbake/bin/[b]itbake-server"
+        local BITBAKE_PIDS=`ps aux | grep "bitbake/bin/[b]itbake-server" | awk '{print $2}' | xargs`
+        [ -n "${BITBAKE_PIDS}" ] && kill -9 ${BITBAKE_PIDS}
+        ps aux | grep "bitbake/bin/[b]itbake-server" || true
+    fi
 }
 
 function run_build {
