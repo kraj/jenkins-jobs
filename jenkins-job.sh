@@ -346,7 +346,8 @@ BUILDHISTORY_COMMIT ?= "1"
 BUILDHISTORY_COMMIT_AUTHOR ?= "Khem Raj <raj.khem@gmail.com>"
 BUILDHISTORY_PUSH_REPO ?= "origin oe-world"
 BUILDHISTORY_RESET = "1"
-
+# 1s to wait before unloading memres bitbake
+BB_SERVER_TIMEOUT = "1"
 BB_DISKMON_DIRS = "\\
     STOPTASKS,${TMPDIR},1G,100K \\
     STOPTASKS,${DL_DIR},1G,100K \\
