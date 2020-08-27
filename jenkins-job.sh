@@ -149,8 +149,12 @@ function sanity_check_workspace {
         if [ "${BUILD_TYPE}" = "kill-stalled" ] ; then
             echo "WARN: ${BUILD_SCRIPT_NAME}-${BUILD_SCRIPT_VERSION} There is some bitbake process already running from '${BUILD_TOPDIR}', maybe some stalled process from aborted job?"
         else
-            echo "ERROR: ${BUILD_SCRIPT_NAME}-${BUILD_SCRIPT_VERSION} There is some bitbake process already running from '${BUILD_TOPDIR}', maybe some stalled process from aborted job?"
-            exit 1
+            sleep 60
+            # check again after waiting for 1 minute
+            if ps aux | grep "[b]itbake"; then
+                echo "ERROR: ${BUILD_SCRIPT_NAME}-${BUILD_SCRIPT_VERSION} There is some bitbake process already running from '${BUILD_TOPDIR}', maybe some stalled process from aborted job?"
+                exit 1
+            fi
         fi
     fi
 }
