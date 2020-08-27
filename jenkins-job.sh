@@ -4,7 +4,7 @@ BUILD_SCRIPT_VERSION="1.8.46"
 BUILD_SCRIPT_NAME=`basename ${0}`
 
 BUILD_BRANCH="yoe/mut"
-DISTRO_CODE="dunfell"
+DISTRO_CODE="gatesgarth"
 # These are used by in following functions, declare them here so that
 # they are defined even when we're only sourcing this script
 BUILD_TIME_STR="TIME: ${BUILD_SCRIPT_NAME}-${BUILD_SCRIPT_VERSION} %e %S %U %P %c %w %R %F %M %x %C"
