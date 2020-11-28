@@ -211,7 +211,7 @@ EOF
 
     cp conf/local.conf ${LOGDIR}
     cat ${LOGDIR}/qa.log && true
-    #report_error
+    report_error
     # wait for pseudo
     exit ${RESULT}
 }
