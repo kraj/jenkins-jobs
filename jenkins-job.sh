@@ -128,7 +128,9 @@ TEST_QEMUBOOT_TIMEOUT = "60"
 TEST_TARGET_raspberrypi3 ?= "simpleremote"
 TEST_TARGET_IP_raspberrypi3 ?= "10.0.0.68"
 
-PARALLEL_MAKE_append = " -l \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN'])) * 100/100}"
+#PARALLEL_MAKE_append = " -l \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/100)}"
+BB_NUMBER_THREADS = "\${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/200)}"
+PARALLEL_MAKE = "-j \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/200)}"
 
 XZ_DEFAULTS = "--threads=4"
 
