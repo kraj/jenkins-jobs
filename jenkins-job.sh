@@ -335,8 +335,8 @@ DL_DIR = "${DOWNLOADS}"
 SSTATE_DIR = "${SSTATE}"
 
 #PARALLEL_MAKE_append = " -l \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/100)}"
-BB_NUMBER_THREADS = "\${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/200)}"
-PARALLEL_MAKE = "-j \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/200)}"
+BB_NUMBER_THREADS = "\${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/300)}"
+PARALLEL_MAKE = "-j \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/300)}"
 XZ_DEFAULTS = "--threads=8"
 
 INHERIT += "rm_work"
