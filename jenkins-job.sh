@@ -377,6 +377,13 @@ DISTRO_FEATURES_remove_riscv64 = "ld-is-gold"
 DISTRO_FEATURES_remove_riscv32 = "ld-is-gold"
 DISTRO_FEATURES_remove_class-crosssdk = "ld-is-gold"
 
+# Workaround for https://sourceware.org/bugzilla/show_bug.cgi?id=27246
+CFLAGS_append_pn-redis = " -gdwarf-4"
+CFLAGS_append_pn-links = " -gdwarf-4"
+CFLAGS_append_pn-links-x11 = " -gdwarf-4"
+CFLAGS_append_pn-lmbench = " -gdwarf-4"
+CXXFLAGS_append_pn-ace = " -gdwarf-4"
+
 # use ptest
 DISTRO_FEATURES_append = " ptest"
 
@@ -698,7 +705,7 @@ function show-failed-tasks {
     rm -rf $TMPDIR
 
     printf "\n=== PNBLACKLISTs (`show-pnblacklists | grep ':PNBLACKLIST\[' | wc -l`) ===\n"
- 
+
     echo; echo;
     show-pnblacklists
 
