@@ -383,6 +383,8 @@ CFLAGS_append_pn-links = " -gdwarf-4"
 CFLAGS_append_pn-links-x11 = " -gdwarf-4"
 CFLAGS_append_pn-lmbench = " -gdwarf-4"
 CPPFLAGS_append_pn-ace = " -gdwarf-4"
+# gold linker crashes with gcc11/musl/x86
+LDFLAGS_append_pn-stress-ng = " -fuse-ld=bfd"
 
 # use ptest
 DISTRO_FEATURES_append = " ptest"
