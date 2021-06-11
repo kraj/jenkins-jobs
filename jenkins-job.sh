@@ -102,11 +102,7 @@ INHERIT += "buildstats buildstats-summary"
 DL_DIR = "/opt/world/downloads/"
 SSTATE_DIR = "/opt/sstate-cache/"
 
-
 ACCEPT_FSL_EULA = "1"
-
-# For kernel-selftest with linux 4.18+
-HOSTTOOLS += "clang llc"
 
 DISTRO_FEATURES_append = " ptest"
 #EXTRA_IMAGE_FEATURES_append = " ptest-pkgs"
