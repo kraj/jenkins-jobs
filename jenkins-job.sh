@@ -104,7 +104,7 @@ SSTATE_DIR = "/opt/sstate-cache/"
 
 ACCEPT_FSL_EULA = "1"
 
-DISTRO_FEATURES_append = " ptest"
+DISTRO_FEATURES:append = " ptest"
 #EXTRA_IMAGE_FEATURES_append = " ptest-pkgs"
 #TEST_SUITES = "_ptest"
 
@@ -134,7 +134,7 @@ INHERIT += "blacklist"
 PNBLACKLIST[build-appliance-image] = "tries to include whole downloads directory in /home/builder/poky :/"
 
 # Enable all commercial packages for build
-LICENSE_FLAGS_WHITELIST_append = " commercial non-commercial"
+LICENSE_FLAGS_WHITELIST:append = " commercial non-commercial"
 EOF
 
 # delete ununsed layers
