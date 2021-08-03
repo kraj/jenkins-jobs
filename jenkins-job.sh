@@ -135,6 +135,7 @@ PNBLACKLIST[build-appliance-image] = "tries to include whole downloads directory
 
 # Enable all commercial packages for build
 LICENSE_FLAGS_WHITELIST:append = " commercial non-commercial"
+CONF_VERSION = "2"
 EOF
 
 # delete ununsed layers
@@ -169,7 +170,7 @@ do
     mv build/tmp build/tmp-${tmpfile}
     rm -rf build/tmp-${tmpfile}
   fi
-    
+
 # disable checking for return value for now
   if [ $ret != 0 ]
   then
