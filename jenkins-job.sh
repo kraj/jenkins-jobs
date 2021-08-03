@@ -370,27 +370,27 @@ BB_DISKMON_DIRS = "\\
 PREFERRED_PROVIDER_virtual/fftw = "fftw"
 
 # use gold
-DISTRO_FEATURES_append = " ld-is-gold"
+DISTRO_FEATURES:append = " ld-is-gold"
 
 # gold does not support rv32/rv64 yet
-DISTRO_FEATURES_remove_riscv64 = "ld-is-gold"
-DISTRO_FEATURES_remove_riscv32 = "ld-is-gold"
-DISTRO_FEATURES_remove_class-crosssdk = "ld-is-gold"
+DISTRO_FEATURES:remove:riscv64 = "ld-is-gold"
+DISTRO_FEATURES:remove:riscv32 = "ld-is-gold"
+DISTRO_FEATURES:remove:class-crosssdk = "ld-is-gold"
 
 # Workaround for https://sourceware.org/bugzilla/show_bug.cgi?id=27246
-CFLAGS_append_pn-redis = " -gdwarf-4"
-CFLAGS_append_pn-links = " -gdwarf-4"
-CFLAGS_append_pn-links-x11 = " -gdwarf-4"
-CFLAGS_append_pn-lmbench = " -gdwarf-4"
-CPPFLAGS_append_pn-ace = " -gdwarf-4"
+CFLAGS:append:pn-redis = " -gdwarf-4"
+CFLAGS:append:pn-links = " -gdwarf-4"
+CFLAGS:append:pn-links-x11 = " -gdwarf-4"
+CFLAGS:append:pn-lmbench = " -gdwarf-4"
+CPPFLAGS:append:pn-ace = " -gdwarf-4"
 # gold linker crashes with gcc11/musl/x86
-LDFLAGS_append_pn-stress-ng = " -fuse-ld=bfd"
+LDFLAGS:append:pn-stress-ng = " -fuse-ld=bfd"
 
 # use ptest
-DISTRO_FEATURES_append = " ptest"
+DISTRO_FEATURES:append = " ptest"
 
 # use opengl
-DISTRO_FEATURES_append = " opengl"
+DISTRO_FEATURES:append = " opengl"
 
 PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
 PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
@@ -405,13 +405,13 @@ PREFERRED_PROVIDER_virtual/egl ?= "mesa"
 # to fix fsoaudiod, alsa-state conflict in shr-image-all
 VIRTUAL-RUNTIME_alsa-state = ""
 # to prevent alsa-state being pulled into -dev or -dbg images
-RDEPENDS_\${PN}-dev_pn-alsa-state = ""
-RDEPENDS_\${PN}-dbg_pn-alsa-state = ""
+RDEPENDS:\${PN}-dev:pn-alsa-state = ""
+RDEPENDS:\${PN}-dbg:pn-alsa-state = ""
 
 # to fix dependency on conflicting x11-common from packagegroup-core-x11
 VIRTUAL-RUNTIME_xserver_common ?= "xserver-common"
-RDEPENDS_\${PN}-dev_pn-x11-common = ""
-RDEPENDS_\${PN}-dbg_pn-x11-common = ""
+RDEPENDS:\${PN}-dev:pn-x11-common = ""
+RDEPENDS:\${PN}-dbg:pn-x11-common = ""
 
 # to fix apm, fso-apm conflict in shr-image-all
 VIRTUAL-RUNTIME_apm = "fso-apm"
@@ -421,22 +421,22 @@ VIRTUAL-RUNTIME_apm = "fso-apm"
 
 # for qtwebkit etc
 # see https://bugzilla.yoctoproject.org/show_bug.cgi?id=5013
-# DEPENDS_append_pn-qtbase = " mesa"
-PACKAGECONFIG_append_pn-qtbase = " icu gl accessibility freetype fontconfig"
+# DEPENDS:append:pn-qtbase = " mesa"
+PACKAGECONFIG:append:pn-qtbase = " icu gl accessibility freetype fontconfig"
 
 # qtwayland doesn't like egl and xcomposite-glx enabled at the same time
 # http://lists.openembedded.org/pipermail/openembedded-devel/2016-December/110444.html
-PACKAGECONFIG_remove_pn-qtwayland = "xcomposite-egl xcomposite-glx"
+PACKAGECONFIG:remove:pn-qtwayland = "xcomposite-egl xcomposite-glx"
 
 # for webkit-efl
-PACKAGECONFIG_append_pn-harfbuzz = " icu"
+PACKAGECONFIG:append:pn-harfbuzz = " icu"
 
 INHERIT += "blacklist"
 PNBLACKLIST[bigbuckbunny-1080p] = "big and doesn't really need to be tested so much"
 PNBLACKLIST[bigbuckbunny-480p] = "big and doesn't really need to be tested so much"
 PNBLACKLIST[bigbuckbunny-720p] = "big and doesn't really need to be tested so much"
 PNBLACKLIST[tearsofsteel-1080p] = "big and doesn't really need to be tested so much"
-RDEPENDS_packagegroup-meta-multimedia_remove_pn-packagegroup-meta-multimedia = "bigbuckbunny-1080p bigbuckbunny-480p bigbuckbunny-720p tearsofsteel-1080p"
+RDEPENDS:packagegroup-meta-multimedia:remove:pn-packagegroup-meta-multimedia = "bigbuckbunny-1080p bigbuckbunny-480p bigbuckbunny-720p tearsofsteel-1080p"
 PNBLACKLIST[build-appliance-image] = "tries to include whole downloads directory in /home/builder/poky :/"
 PNBLACKLIST[gcompat] = "fails to link on ftbuilders ld: --no-dynamic-linker: unknown option"
 
@@ -461,13 +461,13 @@ WARN_TO_ERROR_QA ?= "ldflags useless-rpaths rpaths staticdev libdir xorg-driver-
                      invalid-packageconfig host-user-contaminated uppercase-pn patch-fuzz \\
                      mime mime-xdg \\
                     "
-WARN_QA_remove = "\${WARN_TO_ERROR_QA}"
-ERROR_QA_append = " \${WARN_TO_ERROR_QA}"
+WARN_QA:remove = "\${WARN_TO_ERROR_QA}"
+ERROR_QA:append = " \${WARN_TO_ERROR_QA}"
 
 # required for Freescale stuff to build
 ACCEPT_FSL_EULA = "1"
 # Enable all commercial packages for build
-LICENSE_FLAGS_WHITELIST_append = " commercial non-commercial"
+LICENSE_FLAGS_WHITELIST:append = " commercial non-commercial"
 EOF
     cd ${BUILD_TOPDIR}
     . ./${BUILD_MACHINE}-envsetup.sh
