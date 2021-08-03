@@ -468,6 +468,7 @@ ERROR_QA:append = " \${WARN_TO_ERROR_QA}"
 ACCEPT_FSL_EULA = "1"
 # Enable all commercial packages for build
 LICENSE_FLAGS_WHITELIST:append = " commercial non-commercial"
+CONF_VERSION = "2"
 EOF
     cd ${BUILD_TOPDIR}
     . ./${BUILD_MACHINE}-envsetup.sh
