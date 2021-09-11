@@ -334,7 +334,7 @@ TMPDIR = "${TMPFS}"
 DL_DIR = "${DOWNLOADS}"
 SSTATE_DIR = "${SSTATE}"
 
-#PARALLEL_MAKE_append = " -l \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/100)}"
+#PARALLEL_MAKE:append = " -l \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/100)}"
 BB_NUMBER_THREADS = "\${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/250)}"
 PARALLEL_MAKE = "-j \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/250)}"
 XZ_DEFAULTS = "--threads=8"
@@ -476,7 +476,6 @@ EOF
     yoe_setup
     # delete extra layers so we can complete builds in time
     sed -i -e "/sources\/meta-browser/d" conf/bblayers.conf
-    sed -i -e "/sources\/meta-rust/d" conf/bblayers.conf
     sed -i -e "/sources\/meta-qt5/d" conf/bblayers.conf
     sed -i -e "/sources\/meta-clang/d" conf/bblayers.conf
 
