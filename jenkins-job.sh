@@ -105,11 +105,11 @@ SSTATE_DIR = "/opt/sstate-cache/"
 ACCEPT_FSL_EULA = "1"
 
 DISTRO_FEATURES:append = " ptest"
-#EXTRA_IMAGE_FEATURES_append = " ptest-pkgs"
+#EXTRA_IMAGE_FEATURES:append = " ptest-pkgs"
 #TEST_SUITES = "_ptest"
 
-#TESTIMAGE_AUTO_qemuall = "1"
-#TEST_TARGET_qemuall = "qemu"
+#TESTIMAGE_AUTO:qemuall = "1"
+#TEST_TARGET:qemuall = "qemu"
 # use kvm with x86 qemu
 #QEMU_USE_KVM = "1"
 # Set aside 2GB ram for Qemu
@@ -118,13 +118,13 @@ DISTRO_FEATURES:append = " ptest"
 #DISPLAY = "nographic"
 # common
 #TEST_SERVER_IP = "10.0.0.10"
-#TEST_TARGET_IP_qemuall = "192.168.7.2"
+#TEST_TARGET_IP:qemuall = "192.168.7.2"
 # Allow 3 mins to let it boot
 TEST_QEMUBOOT_TIMEOUT = "60"
-TEST_TARGET_raspberrypi3 ?= "simpleremote"
-TEST_TARGET_IP_raspberrypi3 ?= "10.0.0.68"
+TEST_TARGET:raspberrypi3 ?= "simpleremote"
+TEST_TARGET_IP:raspberrypi3 ?= "10.0.0.68"
 
-#PARALLEL_MAKE_append = " -l \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/100)}"
+#PARALLEL_MAKE:append = " -l \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/100)}"
 BB_NUMBER_THREADS = "\${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/300)}"
 PARALLEL_MAKE = "-j \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/300)}"
 
