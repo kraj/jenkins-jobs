@@ -95,7 +95,6 @@ TOOLCHAIN = "${TOOLCHAIN}"
 
 INHERIT += "testimage"
 INHERIT += "rm_work"
-INHERIT += "reproducible_build_simple"
 INHERIT += "report-error"
 INHERIT += "buildstats buildstats-summary"
 
