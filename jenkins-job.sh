@@ -340,7 +340,6 @@ PARALLEL_MAKE = "-j \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) 
 XZ_DEFAULTS = "--threads=8"
 
 INHERIT += "rm_work"
-INHERIT += "reproducible_build_simple"
 
 # For kernel-selftest with linux 4.18+
 HOSTTOOLS += "clang llc"
