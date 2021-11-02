@@ -325,6 +325,7 @@ function run_prepare {
       mv ${BUILD_TOPDIR}/../buildhistory .
     fi
     git init
+    git remote remove origin
     git remote add origin https://github.com/YoeDistro/yoe-distro
     git pull origin ${BUILD_BRANCH}
     git checkout origin/${BUILD_BRANCH}
