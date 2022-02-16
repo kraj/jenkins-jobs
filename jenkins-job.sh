@@ -430,14 +430,13 @@ PACKAGECONFIG:remove:pn-qtwayland = "xcomposite-egl xcomposite-glx"
 # for webkit-efl
 PACKAGECONFIG:append:pn-harfbuzz = " icu"
 
-INHERIT += "blacklist"
-PNBLACKLIST[bigbuckbunny-1080p] = "big and doesn't really need to be tested so much"
-PNBLACKLIST[bigbuckbunny-480p] = "big and doesn't really need to be tested so much"
-PNBLACKLIST[bigbuckbunny-720p] = "big and doesn't really need to be tested so much"
-PNBLACKLIST[tearsofsteel-1080p] = "big and doesn't really need to be tested so much"
+SKIP_RECIPE[bigbuckbunny-1080p] = "big and doesn't really need to be tested so much"
+SKIP_RECIPE[bigbuckbunny-480p] = "big and doesn't really need to be tested so much"
+SKIP_RECIPE[bigbuckbunny-720p] = "big and doesn't really need to be tested so much"
+SKIP_RECIPE[tearsofsteel-1080p] = "big and doesn't really need to be tested so much"
 RDEPENDS:packagegroup-meta-multimedia:remove:pn-packagegroup-meta-multimedia = "bigbuckbunny-1080p bigbuckbunny-480p bigbuckbunny-720p tearsofsteel-1080p"
-PNBLACKLIST[build-appliance-image] = "tries to include whole downloads directory in /home/builder/poky :/"
-PNBLACKLIST[gcompat] = "fails to link on ftbuilders ld: --no-dynamic-linker: unknown option"
+SKIP_RECIPE[build-appliance-image] = "tries to include whole downloads directory in /home/builder/poky :/"
+SKIP_RECIPE[gcompat] = "fails to link on ftbuilders ld: --no-dynamic-linker: unknown option"
 
 # enable reporting
 # needs http://patchwork.openembedded.org/patch/68735/
@@ -577,15 +576,15 @@ function show-pnblacklists {
     cd ${BUILD_TOPDIR}
     for i in `ls -d sources/openembedded-core sources/meta-*`; do
         cd $i;
-        if git grep '^PNBLACKLIST\[.*=' . | grep -v documentation.conf | grep -v imagefeatures.py | grep -v yoe.conf 2>&1 > /dev/null; then
+        if git grep '^SKIP_RECIPE\[.*=' . | grep -v documentation.conf | grep -v imagefeatures.py | grep -v yoe.conf 2>&1 > /dev/null; then
           echo "$i:";
-          git grep '^PNBLACKLIST\[.*=' . | grep -v documentation.conf | grep -v imagefeatures.py | grep -v yoe.conf | sed 's/^/    * /g' | tee;
+          git grep '^SKIP_RECIPE\[.*=' . | grep -v documentation.conf | grep -v imagefeatures.py | grep -v yoe.conf | sed 's/^/    * /g' | tee;
           echo; echo;
         fi
         cd ../..;
     done
     echo "conf/local.conf:";
-    grep ^PNBLACKLIST conf/local.conf | sed 's/^/    * /g'
+    grep ^SKIP_RECIPE conf/local.conf | sed 's/^/    * /g'
 }
 
 function show-qa-issues {
@@ -706,7 +705,7 @@ function show-failed-tasks {
 
     rm -rf $TMPDIR
 
-    printf "\n=== PNBLACKLISTs (`show-pnblacklists | grep ':PNBLACKLIST\[' | wc -l`) ===\n"
+    printf "\n=== SKIP_RECIPEs (`show-pnblacklists | grep ':SKIP_RECIPE\[' | wc -l`) ===\n"
 
     echo; echo;
     show-pnblacklists
