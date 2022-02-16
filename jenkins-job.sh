@@ -129,8 +129,7 @@ PARALLEL_MAKE = "-j \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) 
 
 XZ_DEFAULTS = "--threads=8"
 
-INHERIT += "blacklist"
-PNBLACKLIST[build-appliance-image] = "tries to include whole downloads directory in /home/builder/poky :/"
+SKIP_RECIPE[build-appliance-image] = "tries to include whole downloads directory in /home/builder/poky :/"
 
 # Enable all commercial packages for build
 LICENSE_FLAGS_WHITELIST:append = " commercial non-commercial"
