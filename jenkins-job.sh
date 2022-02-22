@@ -465,7 +465,7 @@ ERROR_QA:append = " \${WARN_TO_ERROR_QA}"
 # required for Freescale stuff to build
 ACCEPT_FSL_EULA = "1"
 # Enable all commercial packages for build
-LICENSE_FLAGS_WHITELIST:append = " commercial non-commercial"
+LICENSE_FLAGS_ACCEPTED:append = " commercial non-commercial"
 CONF_VERSION = "2"
 EOF
     cd ${BUILD_TOPDIR}
