@@ -132,7 +132,7 @@ XZ_DEFAULTS = "--threads=8"
 SKIP_RECIPE[build-appliance-image] = "tries to include whole downloads directory in /home/builder/poky :/"
 
 # Enable all commercial packages for build
-LICENSE_FLAGS_WHITELIST:append = " commercial non-commercial"
+LICENSE_FLAGS_ACCEPTED:append = " commercial non-commercial"
 CONF_VERSION = "2"
 EOF
 
