@@ -450,18 +450,6 @@ INHERIT += "report-error"
 # needs patch with buildstats-summary.bbclass
 INHERIT += "buildstats buildstats-summary"
 
-# be more strict with QA warnings, turn them all to errors:
-WARN_TO_ERROR_QA ?= "ldflags useless-rpaths rpaths staticdev libdir xorg-driver-abi \\
-                     textrel already-stripped incompatible-license files-invalid \\
-                     installed-vs-shipped compile-host-path install-host-path \\
-                     pn-overrides infodir build-deps src-uri-bad \\
-                     unknown-configure-option symlink-to-sysroot multilib \\
-                     invalid-packageconfig host-user-contaminated uppercase-pn patch-fuzz \\
-                     mime mime-xdg \\
-                    "
-WARN_QA:remove = "\${WARN_TO_ERROR_QA}"
-ERROR_QA:append = " \${WARN_TO_ERROR_QA}"
-
 # required for Freescale stuff to build
 ACCEPT_FSL_EULA = "1"
 # Enable all commercial packages for build
