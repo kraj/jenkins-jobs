@@ -93,7 +93,7 @@ cat <<EOF > ${WORKSPACE}/conf/local.conf
 
 TOOLCHAIN = "${TOOLCHAIN}"
 
-INHERIT += "testimage"
+IMAGE_CLASSES += "testimage"
 INHERIT += "rm_work"
 INHERIT += "report-error"
 INHERIT += "buildstats buildstats-summary"
