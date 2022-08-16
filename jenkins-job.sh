@@ -260,7 +260,7 @@ function run_cleanup {
         echo "$DU1"
         OPENSSL="find ${SSTATE} -name '*:openssl:*populate_sysroot*tgz'"
         ARCHIVES1=`sh -c "${OPENSSL}"`; echo "number of openssl archives: `echo "$ARCHIVES1" | wc -l`"; echo "$ARCHIVES1"
-        ${BUILD_TOPDIR}/sources/openembedded-core/scripts/sstate-cache-management.sh -L --cache-dir=${SSTATE} -y -d --extra-archs=${ARCHS// /,} || true
+        ${BUILD_TOPDIR}/sources/poky/scripts/sstate-cache-management.sh -L --cache-dir=${SSTATE} -y -d --extra-archs=${ARCHS// /,} || true
         DU2=`du -hs ${SSTATE}`
         echo "$DU2"
         ARCHIVES2=`sh -c "${OPENSSL}"`; echo "number of openssl archives: `echo "$ARCHIVES2" | wc -l`"; echo "$ARCHIVES2"
@@ -291,7 +291,7 @@ function run_compare-signatures {
     rm -rf ${BUILD_TOPDIR}/build/tmpfs/*;
     mount | grep "tmpfs type tmpfs" && echo "Some tmpfs already has tmpfs mounted, skipping mount" || mount ${BUILD_TOPDIR}/build/tmpfs
 
-    sources/openembedded-core/scripts/sstate-diff-machines.sh --machines="qemux86copy qemux86 qemuarm" --targets=world --tmpdir=${BUILD_TOPDIR}/build/tmpfs/ --analyze 2>&1 | tee ${LOGDIR}/signatures.log
+    sources/poky/scripts/sstate-diff-machines.sh --machines="qemux86copy qemux86 qemuarm" --targets=world --tmpdir=${BUILD_TOPDIR}/build/tmpfs/ --analyze 2>&1 | tee ${LOGDIR}/signatures.log
     RESULT+=${PIPESTATUS[0]}
 
     OUTPUT=`grep "INFO: Output written in: " ${LOGDIR}/signatures.log | sed 's/INFO: Output written in: //g'`
@@ -498,7 +498,7 @@ function run_test-dependencies {
     ln -s ${BUILD_TOPDIR}/build/tmpfs/buildhistory .
 
     rm -f ${BUILD_TOPDIR}/build/tmpfs/qa.log
-    time ${BUILD_TOPDIR}/sources/openembedded-core/scripts/test-dependencies.sh --tmpdir=${BUILD_TOPDIR}/build/tmpfs $RECIPES 2>&1 | tee -a ${LOGDIR}/test-dependencies.log
+    time ${BUILD_TOPDIR}/sources/poky/scripts/test-dependencies.sh --tmpdir=${BUILD_TOPDIR}/build/tmpfs $RECIPES 2>&1 | tee -a ${LOGDIR}/test-dependencies.log
     RESULT+=${PIPESTATUS[0]}
 
     # restore full buildhistory
@@ -562,7 +562,7 @@ function run_parse-results {
 
 function show-pnblacklists {
     cd ${BUILD_TOPDIR}
-    for i in `ls -d sources/openembedded-core sources/meta-*`; do
+    for i in `ls -d sources/poky sources/meta-*`; do
         cd $i;
         if git grep '^SKIP_RECIPE\[.*=' . | grep -v documentation.conf | grep -v imagefeatures.py | grep -v yoe.conf 2>&1 > /dev/null; then
           echo "$i:";
@@ -723,7 +723,7 @@ function show-failed-tasks {
 function show-git-log() {
     BRANCH=HEAD
     pushd ${PWD}
-    for i in bitbake openembedded-core meta-openembedded; do
+    for i in poky meta-openembedded; do
         printf "\n== Tested changes (not included in master yet) - $i ==\n"
         cd sources/$i;
         COUNT=`git log --oneline origin/master..${BRANCH} | wc -l`
