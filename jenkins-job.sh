@@ -130,6 +130,7 @@ PARALLEL_MAKE = "-j \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) 
 XZ_DEFAULTS = "--threads=8"
 
 SKIP_RECIPE[build-appliance-image] = "tries to include whole downloads directory in /home/builder/poky :/"
+SKIP_RECIPE[rust] = "doesn't build on ubuntu 18.04 builders yet"
 
 # Enable all commercial packages for build
 LICENSE_FLAGS_ACCEPTED:append = " commercial non-commercial"
