@@ -156,7 +156,8 @@ do
     mv build/tmp build/tmp-${tmpfile}
     rm -rf build/tmp-${tmpfile}
   fi
-  for f in `find /opt/world/downloads/ -maxdepth 1 -name "*.lock"` `find /opt/world/downloads/ -name "*bad-checksum*"`
+  for f in `find /opt/world/downloads/ -maxdepth 1 -name "*.lock"` `find /opt/world/downloads/ -name "*bad-checksum*"` \
+           `find /opt/world/downloads/ -maxdepth 1 -name "*.tmp"`
   do
     rm $f
   done
