@@ -18,7 +18,7 @@ umask 0022
 export PATH=/usr/local/bin:$PATH:/usr/sbin
 
 # use Pre-Built buildtools Tarball ( currently 3.0 is latest, update it on trusty1 when next release happens)
-BUILDTOOLS=/opt/poky/3.0/environment-setup-x86_64-pokysdk-linux
+BUILDTOOLS=/opt/poky/4.1.1/environment-setup-x86_64-pokysdk-linux
 
 test -e ${BUILDTOOLS} && . ${BUILDTOOLS}
 
