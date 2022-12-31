@@ -131,7 +131,7 @@ XZ_DEFAULTS = "--threads=8"
 
 SKIP_RECIPE[build-appliance-image] = "tries to include whole downloads directory in /home/builder/poky :/"
 SKIP_RECIPE[rust] = "doesn't build on ubuntu 18.04 builders yet"
-
+SKIP_RECIPE[packagegroup-rust-sdk-target] = "Rdepends on target rust, and rust is skipped from build on ubuntu 18.04"
 # Enable all commercial packages for build
 LICENSE_FLAGS_ACCEPTED:append = " commercial non-commercial"
 CONF_VERSION = "2"
