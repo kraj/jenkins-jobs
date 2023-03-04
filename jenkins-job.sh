@@ -142,12 +142,12 @@ LICENSE_FLAGS_ACCEPTED:append = " commercial non-commercial"
 CONF_VERSION = "2"
 EOF
 
-machs="${MACHINES}"
+projs="${PROJECTS}"
 t="${TARGETS}"
 opts="--continue"
 
 
-for m in $machs
+for m in $projs
 do
   echo "---------------------------------------------------------------------"
   echo "Building $t for $m ..."
