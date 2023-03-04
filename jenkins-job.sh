@@ -26,7 +26,9 @@ buildit() {
 #       echo $1 $2 $3 $4
         local myret=$1
         start_time=`date +%s`
-        MACHINE=$2 /usr/bin/timeout -s KILL ${TIMEOUT} bitbake $3 $4
+        unset PROJECT
+        ./envsetup.sh $2
+        /usr/bin/timeout -s KILL ${TIMEOUT} bitbake $3 $4
         eval $myret="'$?'"
         end_time=`date +%s`
         echo execution time was `expr $end_time - $start_time` s.
@@ -73,12 +75,13 @@ then
 fi
 
 cat <<EOF > ${WORKSPACE}/local.sh
-export MACHINE=${MACHINE-qemumips}
+export PROJECT=${PROJECT-qemumips}
 export TOOLCHAIN=${TOOLCHAIN-gcc}
 export DOCKER_REPO="none"
 EOF
 
-. ${WORKSPACE}/${MACHINE-qemumips}-envsetup.sh
+cd ${WORKSPACE}
+. ./envsetup.sh
 
 find .git -name "index.lock" -delete
 
@@ -138,10 +141,6 @@ SKIP_RECIPE[arm-ffa-tee] = "Does not build with kernel 6.1+"
 LICENSE_FLAGS_ACCEPTED:append = " commercial non-commercial"
 CONF_VERSION = "2"
 EOF
-
-# delete ununsed layers
-sed -i -e "/${TOPDIR}\/sources\/meta-rust/d" ${WORKSPACE}/conf/bblayers.conf
-sed -i -e "/${TOPDIR}\/sources\/meta-qt5/d" ${WORKSPACE}/conf/bblayers.conf
 
 machs="${MACHINES}"
 t="${TARGETS}"
