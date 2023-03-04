@@ -27,7 +27,7 @@ buildit() {
         local myret=$1
         start_time=`date +%s`
         unset PROJECT
-        ./envsetup.sh $2
+        . ./envsetup.sh $2
         /usr/bin/timeout -s KILL ${TIMEOUT} bitbake $3 $4
         eval $myret="'$?'"
         end_time=`date +%s`
