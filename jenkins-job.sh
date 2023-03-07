@@ -106,6 +106,11 @@ SSTATE_DIR = "/opt/sstate-cache/"
 
 ACCEPT_FSL_EULA = "1"
 
+BB_GIT_SHALLOW = "1"
+# Keep only the top commit
+BB_GIT_SHALLOW_DEPTH = "1"
+BB_GENERATE_SHALLOW_TARBALLS = "1"
+
 DISTRO_FEATURES:append = " ptest"
 #EXTRA_IMAGE_FEATURES:append = " ptest-pkgs"
 #TEST_SUITES = "_ptest"
