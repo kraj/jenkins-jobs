@@ -96,6 +96,8 @@ cat <<EOF > ${WORKSPACE}/conf/local.conf
 
 TOOLCHAIN = "${TOOLCHAIN}"
 
+YOE_PROFILE = "${YOE_PROFILE}"
+
 IMAGE_CLASSES += "testimage"
 INHERIT += "rm_work"
 INHERIT += "report-error"
@@ -103,8 +105,6 @@ INHERIT += "buildstats buildstats-summary"
 
 DL_DIR = "/opt/world/downloads/"
 SSTATE_DIR = "/opt/sstate-cache/"
-
-ACCEPT_FSL_EULA = "1"
 
 BB_GIT_SHALLOW = "1"
 # Keep only the top commit
@@ -128,14 +128,13 @@ DISTRO_FEATURES:append = " ptest"
 #TEST_TARGET_IP:qemuall = "192.168.7.2"
 # Allow 3 mins to let it boot
 TEST_QEMUBOOT_TIMEOUT = "60"
-TEST_TARGET:raspberrypi3 ?= "simpleremote"
-TEST_TARGET_IP:raspberrypi3 ?= "10.0.0.68"
 
 #PARALLEL_MAKE:append = " -l \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/100)}"
 BB_NUMBER_THREADS = "\${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/300)}"
 PARALLEL_MAKE = "-j \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/300)}"
 
 XZ_DEFAULTS = "--threads=8"
+ZSTD_THREADS = "8"
 
 SKIP_RECIPE[build-appliance-image] = "tries to include whole downloads directory in /home/builder/poky :/"
 SKIP_RECIPE[rust] = "doesn't build on ubuntu 18.04 builders yet"
