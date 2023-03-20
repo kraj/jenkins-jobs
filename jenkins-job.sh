@@ -17,9 +17,18 @@ umask 0022
 
 export PATH=/usr/local/bin:$PATH:/usr/sbin
 
-# use Pre-Built buildtools Tarball ( currently 4.1.2 is latest, update it on ubuntu 18.04 hosts when next release happens)
-BUILDTOOLS=/opt/poky/4.1.2/environment-setup-x86_64-pokysdk-linux
+# Compare two versions e.g. 18.04 < 22.04
+version_greater_equal() {
+    printf '%s\n%s\n' "$2" "$1" | sort --check=quiet --version-sort
+}
 
+test -e /etc/os-release && os_release='/etc/os-release' || os_release='/usr/lib/os-release'
+. "${os_release}"
+
+if ! version_greater_equal 22.04 $VERSION_ID; then
+        BUILDTOOLS=/opt/poky/4.1.2/environment-setup-x86_64-pokysdk-linux
+fi
+# use Pre-Built buildtools Tarball ( currently 4.1.2 is latest, update it on ubuntu 18.04 hosts when next release happens)
 test -e ${BUILDTOOLS} && . ${BUILDTOOLS}
 
 buildit() {
