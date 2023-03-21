@@ -25,11 +25,12 @@ version_greater_equal() {
 test -e /etc/os-release && os_release='/etc/os-release' || os_release='/usr/lib/os-release'
 . "${os_release}"
 
+# use Pre-Built buildtools Tarball ( currently 4.1.2 is latest, update it on ubuntu 18.04 hosts when next release happens)
 if ! version_greater_equal $VERSION_ID 22.04; then
         BUILDTOOLS=/opt/poky/4.1.2/environment-setup-x86_64-pokysdk-linux
+        echo "Using buildtools from $BUILDTOOLS"
+        test -e ${BUILDTOOLS} && . ${BUILDTOOLS}
 fi
-# use Pre-Built buildtools Tarball ( currently 4.1.2 is latest, update it on ubuntu 18.04 hosts when next release happens)
-test -e ${BUILDTOOLS} && . ${BUILDTOOLS}
 
 buildit() {
 #       echo $1 $2 $3 $4
