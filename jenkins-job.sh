@@ -122,6 +122,8 @@ BB_GIT_SHALLOW_DEPTH = "1"
 BB_GENERATE_SHALLOW_TARBALLS = "1"
 
 DISTRO_FEATURES:append = " ptest"
+# Remove use of lld on rv64 for now, it does not work with binutils 2.41+
+DISTRO_FEATURES:remove:riscv64 = "ld-is-lld"
 #EXTRA_IMAGE_FEATURES:append = " ptest-pkgs"
 #TEST_SUITES = "_ptest"
 
