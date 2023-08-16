@@ -139,13 +139,13 @@ DISTRO_FEATURES:append = " ptest"
 # Allow 3 mins to let it boot
 TEST_QEMUBOOT_TIMEOUT = "60"
 
-PARALLEL_MAKE:append = " -l \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/50)}"
+#PARALLEL_MAKE:append = " -l \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/50)}"
 #BB_NUMBER_THREADS = "\${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/300)}"
-#PARALLEL_MAKE = "-j \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/300)}"
+PARALLEL_MAKE = "-j \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/300)}"
 
 XZ_THREADS = "4"
 ZSTD_THREADS = "4"
-XZ_MEMLIMIT = "5%"
+#XZ_MEMLIMIT = "5%"
 OMP_NUM_THREADS = "8"
 
 SKIP_RECIPE[build-appliance-image] = "tries to include whole downloads directory in /home/builder/poky :/"
