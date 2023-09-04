@@ -141,7 +141,10 @@ TEST_QEMUBOOT_TIMEOUT = "60"
 
 #PARALLEL_MAKE:append = " -l \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/50)}"
 #BB_NUMBER_THREADS = "\${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/300)}"
-PARALLEL_MAKE = "-j \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/300)}"
+#PARALLEL_MAKE = "-j \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/300)}"
+
+BB_PRESSURE_MAX_CPU = "1000"
+BB_PRESSURE_MAX_MEMORY = "500"
 
 XZ_THREADS = "4"
 ZSTD_THREADS = "4"
