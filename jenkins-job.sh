@@ -146,10 +146,10 @@ TEST_QEMUBOOT_TIMEOUT = "60"
 BB_PRESSURE_MAX_CPU = "10000"
 BB_PRESSURE_MAX_MEMORY = "20000"
 
-XZ_THREADS = "4"
-ZSTD_THREADS = "4"
+#XZ_THREADS = "4"
+#ZSTD_THREADS = "4"
 #XZ_MEMLIMIT = "5%"
-OMP_NUM_THREADS = "8"
+#OMP_NUM_THREADS = "8"
 
 SKIP_RECIPE[build-appliance-image] = "tries to include whole downloads directory in /home/builder/poky :/"
 SKIP_RECIPE[rust] = "doesn't build on ubuntu 18.04 builders yet"
