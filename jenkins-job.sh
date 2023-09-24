@@ -158,6 +158,9 @@ SKIP_RECIPE[arm-ffa-user] = "Does not build with kernel 6.1+"
 SKIP_RECIPE[arm-ffa-tee] = "Does not build with kernel 6.1+"
 # Enable all commercial packages for build
 LICENSE_FLAGS_ACCEPTED:append = " commercial non-commercial"
+
+BBMASK = "meta-qt6"
+
 CONF_VERSION = "2"
 EOF
 
