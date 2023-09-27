@@ -38,6 +38,8 @@ buildit() {
         start_time=`date +%s`
         unset PROJECT
         . ./envsetup.sh $2
+        # do not build QT6 layer
+        sed -i -e '/meta-qt6/d' conf/projects/${PROJECT}/layers.conf
         /usr/bin/timeout -s KILL ${TIMEOUT} bitbake $3 $4
         eval $myret="'$?'"
         end_time=`date +%s`
@@ -143,7 +145,7 @@ TEST_QEMUBOOT_TIMEOUT = "60"
 #PARALLEL_MAKE = "-j \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/300)}"
 #PARALLEL_MAKE:append = " -l \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/50)}"
 
-BB_PRESSURE_MAX_CPU = "15000"
+BB_PRESSURE_MAX_CPU = "16000"
 #BB_PRESSURE_MAX_MEMORY = "20000"
 
 #XZ_THREADS = "4"
@@ -158,8 +160,6 @@ SKIP_RECIPE[arm-ffa-user] = "Does not build with kernel 6.1+"
 SKIP_RECIPE[arm-ffa-tee] = "Does not build with kernel 6.1+"
 # Enable all commercial packages for build
 LICENSE_FLAGS_ACCEPTED:append = " commercial non-commercial"
-
-BBMASK = "meta-qt6"
 
 CONF_VERSION = "2"
 EOF
