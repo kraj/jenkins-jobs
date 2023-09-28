@@ -161,6 +161,9 @@ SKIP_RECIPE[arm-ffa-tee] = "Does not build with kernel 6.1+"
 # Enable all commercial packages for build
 LICENSE_FLAGS_ACCEPTED:append = " commercial non-commercial"
 
+# Do not build meta-qt6 in CI, takes too long with it
+EXCLUDE_FROM_WORLD:qt6-layer = '1'
+
 CONF_VERSION = "2"
 EOF
 
