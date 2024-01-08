@@ -205,7 +205,7 @@ done
 if [ "${DONT_PRUNE_SSTATE}" != "true" ]
 then
     echo "Pruning shared state ..."
-    ./sources/poky/scripts/sstate-cache-management.sh -d -y > /dev/null 2>&1
+    ./sources/poky/scripts/sstate-cache-management.py -d --remove-orphans -y > /dev/null 2>&1
 fi
 
 echo "All Done !!!"
