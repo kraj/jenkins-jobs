@@ -38,7 +38,8 @@ buildit() {
         . ./envsetup.sh $2
         # do not build QT6 layer
         sed -i -e '/meta-qt6/d' conf/projects/${PROJECT}/layers.conf
-        /usr/bin/timeout -s KILL ${TIMEOUT} bitbake $3 $4
+        #/usr/bin/timeout -s KILL ${TIMEOUT} bitbake $3 $4
+        bitbake $3 $4
         eval $myret="'$?'"
         end_time=`date +%s`
         echo execution time was `expr $end_time - $start_time` s.
