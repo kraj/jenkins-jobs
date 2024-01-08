@@ -15,8 +15,6 @@ BUILD_TIMESTAMP_OLD=${BUILD_TIMESTAMP_START}
 TIMEOUT="15h"
 umask 0022
 
-export PATH=/usr/local/bin:$PATH:/usr/sbin
-
 # Compare two versions e.g. 18.04 < 22.04
 version_greater_equal() {
     printf '%s\n%s\n' "$2" "$1" | sort --check=quiet --version-sort
