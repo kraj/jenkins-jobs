@@ -38,6 +38,8 @@ buildit() {
         . ./envsetup.sh $2
         # do not build QT6 layer
         sed -i -e '/meta-qt6/d' conf/projects/${PROJECT}/layers.conf
+        # Disable hash equivalence, its too slow
+        sed -i -e 's/^BB_SIGNATURE_HANDLER/#BB_SIGNATURE_HANDLER/' sources/meta-yoe/conf/distro/yoe.inc
         #/usr/bin/timeout -s KILL ${TIMEOUT} bitbake $3 $4
         bitbake $3 $4
         eval $myret="'$?'"
@@ -145,7 +147,7 @@ TEST_QEMUBOOT_TIMEOUT = "60"
 #PARALLEL_MAKE:append = " -l \${@int(os.sysconf(os.sysconf_names['SC_NPROCESSORS_ONLN']) * 100/50)}"
 
 BB_NUMBER_PARSE_THREADS = "32"
-#BB_PRESSURE_MAX_CPU = "32000"
+BB_PRESSURE_MAX_CPU = "32000"
 #BB_PRESSURE_MAX_MEMORY = "20000"
 
 #XZ_THREADS = "4"
