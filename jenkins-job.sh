@@ -40,6 +40,7 @@ buildit() {
         sed -i -e '/meta-qt6/d' conf/projects/${PROJECT}/layers.conf
         # Disable hash equivalence, its too slow
         sed -i -e 's/^BB_SIGNATURE_HANDLER/#BB_SIGNATURE_HANDLER/' sources/meta-yoe/conf/distro/yoe.inc
+        sed -i -e 's/^BB_HASHSERVE /#BB_HASHSERVE /' sources/meta-yoe/conf/distro/yoe.inc
         #/usr/bin/timeout -s KILL ${TIMEOUT} bitbake $3 $4
         bitbake $3 $4
         eval $myret="'$?'"
