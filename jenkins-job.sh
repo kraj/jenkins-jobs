@@ -164,6 +164,7 @@ LICENSE_FLAGS_ACCEPTED:append = " commercial non-commercial"
 EXCLUDE_FROM_WORLD:qt6-layer = '1'
 
 CONF_VERSION = "2"
+TOOLCHAIN:pn-alsa-tools = "gcc"
 EOF
 
 projs="${PROJECTS}"
