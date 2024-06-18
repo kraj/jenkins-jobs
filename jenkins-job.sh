@@ -38,6 +38,9 @@ buildit() {
         . ./envsetup.sh $2
         # do not build QT6 layer
         sed -i -e '/meta-qt6/d' conf/projects/${PROJECT}/layers.conf
+        # undo https://git.yoctoproject.org/poky/commit/?id=80396cc72ac7
+        # New ubuntu VMs mount /tmp with NOEXEC
+        sed -i -e '/os.ST_NOEXEC:$/{N;d;}' sources/poky/meta/classes-global/sanity.bbclass
         # Disable hash equivalence, its too slow
         #sed -i -e 's/^BB_SIGNATURE_HANDLER/#BB_SIGNATURE_HANDLER/' sources/meta-yoe/conf/distro/yoe.inc
         #sed -i -e 's/^BB_HASHSERVE /#BB_HASHSERVE /' sources/meta-yoe/conf/distro/yoe.inc
