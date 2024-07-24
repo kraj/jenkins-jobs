@@ -101,6 +101,7 @@ cd ${WORKSPACE}
 . ./envsetup.sh
 
 find .git -name "index.lock" -delete
+find .git -name "shallow.lock" -delete
 
 kill_stalled_bitbake_processes
 
