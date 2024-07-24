@@ -105,6 +105,7 @@ find .git -name "index.lock" -delete
 kill_stalled_bitbake_processes
 
 git fetch --all
+git gc --prune
 yoe_setup
 git checkout ${BRANCH}
 yoe_update_all
