@@ -102,6 +102,7 @@ cd ${WORKSPACE}/yoe
 git submodule init
 git submodule update --depth 1
 git submodule status
+git log HEAD~1..HEAD
 
 cat <<EOF > ${WORKSPACE}/yoe/local.sh
 export PROJECT=${PROJECT-qemuarm}
