@@ -24,7 +24,8 @@ test -e /etc/os-release && os_release='/etc/os-release' || os_release='/usr/lib/
 . "${os_release}"
 
 # use Pre-Built buildtools Tarball ( currently 5.0.2 is latest, update it on ubuntu 18.04 hosts when next release happens)
-YPVER=5.0.3
+# https://downloads.yoctoproject.org/releases/yocto/yocto-5.0.2/buildtools/?C=S&O=A
+YPVER=5.0.2
 SDKOS=$(uname -m)
 #if ! version_greater_equal $VERSION_ID 22.04; then
 #        BUILDTOOLS=/opt/poky/$YPVER/environment-setup-$SDKOS-pokysdk-linux
