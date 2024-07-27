@@ -94,7 +94,7 @@ then
     cleanup_builddir
 fi
 
-rm -rf ${WORKSPACE}
+rm -rf ${WORKSPACE} && mkdir -p ${WORKSPACE}
 
 git clone --depth 1 -b ${BRANCH} https://github.com/YoeDistro/yoe-distro ${WORKSPACE}
 cd ${WORKSPACE}
