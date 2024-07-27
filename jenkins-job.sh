@@ -112,8 +112,8 @@ EOF
 cd ${WORKSPACE}/yoe
 . ./envsetup.sh
 
-find/yoe .git -name "index.lock" -delete
-find .gi/yoet -name "shallow.lock" -delete
+find .git -name "index.lock" -delete
+find .git -name "shallow.lock" -delete
 
 kill_stalled_bitbake_processes
 
