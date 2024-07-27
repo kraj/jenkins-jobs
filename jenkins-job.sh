@@ -95,24 +95,24 @@ then
 fi
 
 # Delete all except the script itself
-find ${WORKSPACE} ! -name 'jenkins-job.sh' -type f -exec rm -f {} +
+rm -rf ${WORKSPACE}/yoe
 
-git clone --depth 1 -b ${BRANCH} https://github.com/YoeDistro/yoe-distro ${WORKSPACE}
-cd ${WORKSPACE}
+git clone --depth 1 -b ${BRANCH} https://github.com/YoeDistro/yoe-distro ${WORKSPACE}/yoe
+cd ${WORKSPACE}/yoe
 git submodule init
 git submodule update --depth 1
 
-cat <<EOF > ${WORKSPACE}/local.sh
+cat <<EOF > ${WORKSPArm -rflocal.sh
 export PROJECT=${PROJECT-qemuarm}
 export TOOLCHAIN=${TOOLCHAIN-gcc}
 export DOCKER_REPO="none"
 EOF
 
-cd ${WORKSPACE}
+cd ${WORKSPACE}/yoe
 . ./envsetup.sh
 
-find .git -name "index.lock" -delete
-find .git -name "shallow.lock" -delete
+find/yoe .git -name "index.lock" -delete
+find .gi/yoet -name "shallow.lock" -delete
 
 kill_stalled_bitbake_processes
 
@@ -122,7 +122,7 @@ kill_stalled_bitbake_processes
 #git checkout ${BRANCH}
 #yoe_update_all
 
-cat <<EOF > ${WORKSPACE}/conf/local.conf
+cat <<EOF > ${WORKSPACE}/yoe/conf/local.conf
 
 TOOLCHAIN = "${TOOLCHAIN}"
 
@@ -205,7 +205,7 @@ do
     rm $f
   done
   buildit ret "$m" "$opts" "$t"
-  eval `grep -e "send-error-report " ${WORKSPACE}/build/tmp/log/cooker/$m/console-latest.log | \
+  eval `grep -e "send-error-report " ${WORKSPACE}/yoe/build/tmp/log/cooker/$m/console-latest.log | \
         sed 's/^.*send-error-report/send-error-report -y/' | sed 's/\[.*$//g'`
 #  tmpfile=`date +%S%N`
 # if [ -d build/tmp ]
@@ -229,4 +229,4 @@ then
 fi
 
 echo "All Done !!!"
-#rm -rf ${WORKSPACE}
+#rm -rf ${WORKSPACE}/yoe
