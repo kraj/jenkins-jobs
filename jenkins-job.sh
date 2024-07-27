@@ -181,12 +181,12 @@ for m in $projs
 do
   echo "---------------------------------------------------------------------"
   echo "Building $t for $m ..."
-  tmpfile=`date +%S%N`
-  if [ -d build/tmp ]
-  then
-    mv build/tmp build/tmp-${tmpfile}
-    rm -rf build/tmp-${tmpfile}
-  fi
+#  tmpfile=`date +%S%N`
+#  if [ -d build/tmp ]
+#  then
+#    mv build/tmp build/tmp-${tmpfile}
+#    rm -rf build/tmp-${tmpfile}
+#  fi
   for f in `find /opt/world/downloads/ -maxdepth 1 -name "*.lock"` \
            `find /opt/world/downloads/ -maxdepth 1 -name "*bad-checksum*"` \
            `find /opt/world/downloads/ -maxdepth 1 -name "*.tmp"`
@@ -196,12 +196,12 @@ do
   buildit ret "$m" "$opts" "$t"
   eval `grep -e "send-error-report " ${WORKSPACE}/build/tmp/log/cooker/$m/console-latest.log | \
         sed 's/^.*send-error-report/send-error-report -y/' | sed 's/\[.*$//g'`
-  tmpfile=`date +%S%N`
-  if [ -d build/tmp ]
-  then
-    mv build/tmp build/tmp-${tmpfile}
-    rm -rf build/tmp-${tmpfile}
-  fi
+#  tmpfile=`date +%S%N`
+# if [ -d build/tmp ]
+# then
+#   mv build/tmp build/tmp-${tmpfile}
+#   rm -rf build/tmp-${tmpfile}
+# fi
 
 # disable checking for return value for now
   if [ $ret != 0 ]
