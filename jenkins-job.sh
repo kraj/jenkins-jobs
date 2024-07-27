@@ -94,6 +94,13 @@ then
     cleanup_builddir
 fi
 
+rm -rf ${WORKSPACE}
+
+git clone --depth 1 -b ${BRANCH} https://github.com/YoeDistro/yoe-distro ${WORKSPACE}
+cd ${WORKSPACE}
+git submodule init
+git submodule update --depth 1
+
 cat <<EOF > ${WORKSPACE}/local.sh
 export PROJECT=${PROJECT-qemuarm}
 export TOOLCHAIN=${TOOLCHAIN-gcc}
@@ -108,11 +115,11 @@ find .git -name "shallow.lock" -delete
 
 kill_stalled_bitbake_processes
 
-git fetch --all
-git gc --prune
-yoe_setup
-git checkout ${BRANCH}
-yoe_update_all
+#git fetch --all
+#git gc --prune
+#yoe_setup
+#git checkout ${BRANCH}
+#yoe_update_all
 
 cat <<EOF > ${WORKSPACE}/conf/local.conf
 
