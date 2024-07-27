@@ -103,7 +103,7 @@ git submodule init
 git submodule update --depth 1
 git submodule status
 
-cat <<EOF > ${WORKSPACE}/yoe/conf/local.sh
+cat <<EOF > ${WORKSPACE}/yoe/local.sh
 export PROJECT=${PROJECT-qemuarm}
 export TOOLCHAIN=${TOOLCHAIN-gcc}
 export DOCKER_REPO="none"
