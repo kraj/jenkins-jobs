@@ -94,7 +94,8 @@ then
     cleanup_builddir
 fi
 
-rm -rf ${WORKSPACE}/* ${WORKSPACE}/.git*
+# Delete all except the script itself
+find ${WORKSPACE} ! -name 'jenkins-job.sh' -type f -exec rm -f {} +
 
 git clone --depth 1 -b ${BRANCH} https://github.com/YoeDistro/yoe-distro ${WORKSPACE}
 cd ${WORKSPACE}
