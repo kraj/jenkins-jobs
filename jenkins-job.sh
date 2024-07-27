@@ -101,8 +101,9 @@ git clone --depth 1 -b ${BRANCH} https://github.com/YoeDistro/yoe-distro ${WORKS
 cd ${WORKSPACE}/yoe
 git submodule init
 git submodule update --depth 1
+git submodule status
 
-cat <<EOF > ${WORKSPArm -rflocal.sh
+cat <<EOF > ${WORKSPACE}/yoe/conf/local.sh
 export PROJECT=${PROJECT-qemuarm}
 export TOOLCHAIN=${TOOLCHAIN-gcc}
 export DOCKER_REPO="none"
