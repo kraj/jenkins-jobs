@@ -134,6 +134,7 @@ IMAGE_CLASSES += "testimage"
 INHERIT += "rm_work"
 INHERIT += "report-error"
 INHERIT += "buildstats buildstats-summary"
+USER_CLASSES:remove = "buildhistory"
 
 DL_DIR = "/opt/world/downloads/"
 SSTATE_DIR = "/opt/sstate-cache/"
