@@ -131,9 +131,9 @@ TOOLCHAIN = "${TOOLCHAIN}"
 YOE_PROFILE = "${YOE_PROFILE}"
 
 IMAGE_CLASSES += "testimage"
-INHERIT += "rm_work"
+#INHERIT += "rm_work"
 INHERIT += "report-error"
-INHERIT += "buildstats buildstats-summary"
+#INHERIT += "buildstats buildstats-summary"
 USER_CLASSES:remove = "buildhistory"
 
 DL_DIR = "/opt/world/downloads/"
