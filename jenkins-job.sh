@@ -101,8 +101,6 @@ fi
 #cd ${WORKSPACE}
 #git submodule init
 #git submodule update --depth 1
-git submodule status
-git log -1
 
 cat <<EOF > ${WORKSPACE}/local.sh
 export PROJECT=${PROJECT-qemuarm}
@@ -117,11 +115,12 @@ find .git -name "shallow.lock" -delete
 
 kill_stalled_bitbake_processes
 
-#git fetch --all
+git fetch --all
 #git gc --prune
-#yoe_setup
-#git checkout ${BRANCH}
-#yoe_update_all
+yoe_setup
+git checkout ${BRANCH}
+yoe_update_all
+git log -1
 
 cat <<EOF > ${WORKSPACE}/conf/local.conf
 
