@@ -118,8 +118,8 @@ find .git -name "shallow.lock" -delete
 #git fetch --all
 #git gc --prune
 yoe_setup
-git checkout ${BRANCH}
-yoe_update_all
+#git checkout ${BRANCH}
+#yoe_update_all
 git log -1
 
 cat <<EOF > ${WORKSPACE}/conf/local.conf
@@ -208,12 +208,13 @@ do
   buildit ret "$m" "$opts" "$t"
   eval `grep -e "send-error-report " ${WORKSPACE}/build/tmp/log/cooker/$m/console-latest.log | \
         sed 's/^.*send-error-report/send-error-report -y/' | sed 's/\[.*$//g'`
-#  tmpfile=`date +%S%N`
-# if [ -d build/tmp ]
-# then
-#   mv build/tmp build/tmp-${tmpfile}
-#   rm -rf build/tmp-${tmpfile}
-# fi
+  tmpfile=`date +%S%N`
+  if [ -d build/tmp ]
+  then
+    echo "Deleting build tmp ..."
+    mv build/tmp build/tmp-${tmpfile}
+    rm -rf build/tmp-${tmpfile}
+  fi
 
 # disable checking for return value for now
   if [ $ret != 0 ]
