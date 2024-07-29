@@ -79,6 +79,8 @@ kill_stalled_bitbake_processes() {
     fi
 }
 
+kill_stalled_bitbake_processes
+
 git config --global user.email "ab@rdk"
 git config --global user.name "Auto Builder"
 
@@ -112,8 +114,6 @@ EOF
 
 find .git -name "index.lock" -delete
 find .git -name "shallow.lock" -delete
-
-kill_stalled_bitbake_processes
 
 #git fetch --all
 #git gc --prune
