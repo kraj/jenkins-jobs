@@ -27,11 +27,11 @@ test -e /etc/os-release && os_release='/etc/os-release' || os_release='/usr/lib/
 # https://downloads.yoctoproject.org/releases/yocto/yocto-5.0.2/buildtools/?C=S&O=A
 YPVER=5.0.2
 SDKOS=$(uname -m)
-if ! version_greater_equal $VERSION_ID 22.04; then
+#if ! version_greater_equal $VERSION_ID 22.04; then
         BUILDTOOLS=/opt/poky/$YPVER/environment-setup-$SDKOS-pokysdk-linux
         echo "Using buildtools from $BUILDTOOLS"
         test -e ${BUILDTOOLS} && . ${BUILDTOOLS}
-fi
+#fi
 
 buildit() {
 #       echo $1 $2 $3 $4
