@@ -215,14 +215,13 @@ do
     mv build/tmp build/tmp-${tmpfile}
     rm -rf build/tmp-${tmpfile}
   fi
-
-# disable checking for return value for now
-  if [ $ret != 0 ]
-  then
-     exit -1
-  fi
 done
 
+# disable checking for return value for now
+#if [ $ret != 0 ]
+#then
+#   exit -1
+#fi
 
 if [ "${DONT_PRUNE_SSTATE}" != "true" ]
 then
@@ -230,5 +229,6 @@ then
     ./sources/poky/scripts/sstate-cache-management.py -d --remove-orphans -y > /dev/null 2>&1
 fi
 
+kill_stalled_bitbake_processes
 echo "All Done !!!"
 #rm -rf ${WORKSPACE}
