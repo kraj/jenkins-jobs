@@ -55,7 +55,7 @@ buildit() {
 }
 
 cleanup_builddir() {
-        rm -rf /opt/sstate-cache/*
+        rm -rf /mnt/stash/sstate-cache
 }
 
 kill_stalled_bitbake_processes() {
@@ -135,7 +135,7 @@ INHERIT += "report-error"
 USER_CLASSES:remove = "buildhistory"
 
 DL_DIR = "/opt/world/downloads/"
-SSTATE_DIR = "/opt/sstate-cache/"
+SSTATE_DIR = "/mnt/stash/sstate-cache"
 
 BB_GIT_SHALLOW = "1"
 # Keep only the top commit
