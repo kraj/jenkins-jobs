@@ -182,6 +182,8 @@ EXCLUDE_FROM_WORLD:qt6-layer = '1'
 
 CONF_VERSION = "2"
 TOOLCHAIN:pn-alsa-tools = "gcc"
+PSEUDO_IGNORE_PATHS:append = ",/run/"
+
 EOF
 
 projs="${PROJECTS}"
