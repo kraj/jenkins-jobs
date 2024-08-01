@@ -129,13 +129,14 @@ TOOLCHAIN = "${TOOLCHAIN}"
 YOE_PROFILE = "${YOE_PROFILE}"
 
 IMAGE_CLASSES += "testimage"
-#INHERIT += "rm_work"
+INHERIT += "rm_work"
 INHERIT += "report-error"
 #INHERIT += "buildstats buildstats-summary"
 USER_CLASSES:remove = "buildhistory"
 
 DL_DIR = "/opt/world/downloads/"
 SSTATE_DIR = "/mnt/stash/sstate-cache"
+TMPDIR = "/mnt/stash/tmp"
 
 BB_GIT_SHALLOW = "1"
 # Keep only the top commit
@@ -189,7 +190,7 @@ EOF
 projs="${PROJECTS}"
 t="${TARGETS}"
 opts="--continue"
-
+ret=0
 
 for m in $projs
 do
@@ -208,30 +209,33 @@ do
     rm $f
   done
   buildit ret "$m" "$opts" "$t"
-  eval `grep -e "send-error-report " ${WORKSPACE}/build/tmp/log/cooker/$m/console-latest.log | \
+  eval `grep -e "send-error-report " /mnt/stash/tmp/log/cooker/$m/console-latest.log | \
         sed 's/^.*send-error-report/send-error-report -y/' | sed 's/\[.*$//g'`
-  tmpfile=`date +%S%N`
-  if [ -d build/tmp ]
-  then
-    echo "Deleting build tmp ..."
-    mv build/tmp build/tmp-${tmpfile}
-    rm -rf build/tmp-${tmpfile}
-  fi
+  #tmpfile=`date +%S%N`
+  #if [ -d build/tmp ]
+  #then
+  #  echo "Deleting build tmp ..."
+  #  mv build/tmp build/tmp-${tmpfile}
+  #  rm -rf build/tmp-${tmpfile}
+  #fi
 done
 
 if [ "${DONT_PRUNE_SSTATE}" != "true" ]
 then
     echo "Pruning shared state ..."
-    ./sources/poky/scripts/sstate-cache-management.py -d --remove-orphans -y > /dev/null 2>&1
+    ${WORKSPACE}/sources/poky/scripts/sstate-cache-management.py -d --remove-orphans -y > /dev/null 2>&1
+    tmpfile=`date +%S%N`
+    if [ -d /mnt/stash/tmp ]
+    then
+      echo "Deleting tmpdir ..."
+      mv /mnt/stash/tmp /mnt/stash/tmp-${tmpfile}
+      rm -rf /mnt/stash/tmp-${tmpfile}
+    fi
 fi
 
 kill_stalled_bitbake_processes
 
 # disable checking for return value for now
-if [ $ret != 0 ]
-then
-   exit -1
-fi
+test "$ret" != "0" && exit
 
 echo "All Done !!!"
-#rm -rf ${WORKSPACE}
