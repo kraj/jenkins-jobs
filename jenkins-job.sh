@@ -236,6 +236,6 @@ fi
 kill_stalled_bitbake_processes
 
 # disable checking for return value for now
-test "$ret" != "0" && exit
+test "$ret" != "0" && exit 255
 
 echo "All Done !!!"
