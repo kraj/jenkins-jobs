@@ -134,7 +134,7 @@ INHERIT += "report-error"
 #INHERIT += "buildstats buildstats-summary"
 USER_CLASSES:remove = "buildhistory"
 
-DL_DIR = "/opt/world/downloads/"
+DL_DIR = "/opt/downloads"
 SSTATE_DIR = "/mnt/stash/sstate-cache"
 TMPDIR = "/mnt/stash/tmp"
 
